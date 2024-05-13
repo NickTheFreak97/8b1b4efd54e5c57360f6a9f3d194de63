@@ -1,0 +1,6 @@
+framework module Pods_UIKitPlayground_UIKitPlaygroundUITests {
+  umbrella header "Pods-UIKitPlayground-UIKitPlaygroundUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

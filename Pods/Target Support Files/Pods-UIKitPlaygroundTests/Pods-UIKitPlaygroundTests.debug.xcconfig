@@ -1,0 +1,11 @@
+CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Cache" "${PODS_CONFIGURATION_BUILD_DIR}/ISVImageScrollView" "${PODS_CONFIGURATION_BUILD_DIR}/Imaginary" "${PODS_CONFIGURATION_BUILD_DIR}/Lightbox" "${PODS_CONFIGURATION_BUILD_DIR}/SMScrollView" "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSVG"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Cache/Cache.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/ISVImageScrollView/ISVImageScrollView.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Imaginary/Imaginary.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Lightbox/Lightbox.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SMScrollView/SMScrollView.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSVG/SwiftSVG.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "AVFoundation" -framework "AVKit" -framework "Cache" -framework "Foundation" -framework "ISVImageScrollView" -framework "Imaginary" -framework "Lightbox" -framework "SMScrollView" -framework "SnapKit" -framework "SwiftSVG" -framework "UIKit"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods
+PODS_XCFRAMEWORKS_BUILD_DIR = $(PODS_CONFIGURATION_BUILD_DIR)/XCFrameworkIntermediates
+USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES
