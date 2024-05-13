@@ -1,40 +1,24 @@
 PODS:
-  - Cache (6.0.0)
-  - Imaginary (5.0.0):
-    - Cache (~> 6.0.0)
   - ISVImageScrollView (0.3.0)
-  - Lightbox (2.5.0):
-    - Imaginary (~> 5.0.0)
-  - SMScrollView (0.1.0)
   - SnapKit (5.6.0)
   - SwiftSVG (2.3.2)
 
 DEPENDENCIES:
   - ISVImageScrollView
-  - Lightbox
-  - SMScrollView
   - SnapKit
   - SwiftSVG (~> 2.0)
 
 SPEC REPOS:
   trunk:
-    - Cache
-    - Imaginary
     - ISVImageScrollView
-    - Lightbox
-    - SMScrollView
     - SnapKit
     - SwiftSVG
 
 SPEC CHECKSUMS:
-  Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
-  Imaginary: cf5e3a7dd6ab1dcbd47ba8ce5edf2307c4e99eb3
   ISVImageScrollView: 2c89840496647af985bfc0e09b346b9aa733ecec
-  Lightbox: cc3d5124f024fa8197fd23f913160db1c61a1852
-  SMScrollView: 5eb8928f90f5296cf65e0c8d23a7968e043bbf30
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftSVG: ca7f64e403b8ea7ea8eba8c823b83ba4a059834c
 
-PODFILE CHECKSUM: 5430d7b2c4a7c4d4aab45b06bb5dfd2d87d28077
+PODFILE CHECKSUM: 6d3cf0c834af0d95bdc2fba182314a27aa4190c6
 
 COCOAPODS: 1.12.1

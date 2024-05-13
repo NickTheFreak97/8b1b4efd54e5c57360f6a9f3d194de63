@@ -1,11 +1,11 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Cache" "${PODS_CONFIGURATION_BUILD_DIR}/ISVImageScrollView" "${PODS_CONFIGURATION_BUILD_DIR}/Imaginary" "${PODS_CONFIGURATION_BUILD_DIR}/Lightbox" "${PODS_CONFIGURATION_BUILD_DIR}/SMScrollView" "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSVG"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ISVImageScrollView" "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSVG"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Cache/Cache.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/ISVImageScrollView/ISVImageScrollView.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Imaginary/Imaginary.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Lightbox/Lightbox.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SMScrollView/SMScrollView.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSVG/SwiftSVG.framework/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ISVImageScrollView/ISVImageScrollView.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSVG/SwiftSVG.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) /usr/lib/swift '@executable_path/Frameworks' '@loader_path/Frameworks'
 LIBRARY_SEARCH_PATHS = $(inherited) "${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}" /usr/lib/swift
-OTHER_LDFLAGS = $(inherited) -framework "AVFoundation" -framework "AVKit" -framework "Cache" -framework "Foundation" -framework "ISVImageScrollView" -framework "Imaginary" -framework "Lightbox" -framework "SMScrollView" -framework "SnapKit" -framework "SwiftSVG" -framework "UIKit"
+OTHER_LDFLAGS = $(inherited) -framework "ISVImageScrollView" -framework "SnapKit" -framework "SwiftSVG"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
