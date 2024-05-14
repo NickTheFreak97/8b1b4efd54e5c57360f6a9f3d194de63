@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		71970F479E14D26033B5379B /* Pods_UIKitPlayground.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D2032987AAC654E45E2A1E7 /* Pods_UIKitPlayground.framework */; };
-		843F5C362BEF74AC00F45EDC /* UIScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843F5C352BEF74AC00F45EDC /* UIScrollViewController.swift */; };
-		8476855A2BBC33E700A05338 /* InterfaceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847685592BBC33E700A05338 /* InterfaceOrientation.swift */; };
-		84C6037D2BB1A9E700062E5A /* CGSize + sizeThatFits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C6037C2BB1A9E700062E5A /* CGSize + sizeThatFits.swift */; };
 		84CF3BA72BADD56600B32715 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF3BA62BADD56600B32715 /* AppDelegate.swift */; };
 		84CF3BA92BADD56600B32715 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF3BA82BADD56600B32715 /* SceneDelegate.swift */; };
 		84CF3BAB2BADD56600B32715 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF3BAA2BADD56600B32715 /* ViewController.swift */; };
@@ -49,9 +46,6 @@
 		2C735597D986EB0ECD1FA927 /* Pods-UIKitPlaygroundTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIKitPlaygroundTests.debug.xcconfig"; path = "Target Support Files/Pods-UIKitPlaygroundTests/Pods-UIKitPlaygroundTests.debug.xcconfig"; sourceTree = "<group>"; };
 		46F70BC067218AF3687A50D7 /* Pods-UIKitPlayground.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIKitPlayground.debug.xcconfig"; path = "Target Support Files/Pods-UIKitPlayground/Pods-UIKitPlayground.debug.xcconfig"; sourceTree = "<group>"; };
 		4D2032987AAC654E45E2A1E7 /* Pods_UIKitPlayground.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UIKitPlayground.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		843F5C352BEF74AC00F45EDC /* UIScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewController.swift; sourceTree = "<group>"; };
-		847685592BBC33E700A05338 /* InterfaceOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceOrientation.swift; sourceTree = "<group>"; };
-		84C6037C2BB1A9E700062E5A /* CGSize + sizeThatFits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize + sizeThatFits.swift"; sourceTree = "<group>"; };
 		84CF3BA32BADD56600B32715 /* UIKitPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIKitPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CF3BA62BADD56600B32715 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84CF3BA82BADD56600B32715 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,30 +110,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		843F5C342BEF749A00F45EDC /* ScrollViewTests */ = {
-			isa = PBXGroup;
-			children = (
-				843F5C352BEF74AC00F45EDC /* UIScrollViewController.swift */,
-			);
-			path = ScrollViewTests;
-			sourceTree = "<group>";
-		};
-		84C6037A2BB1A9D100062E5A /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				84C6037B2BB1A9DE00062E5A /* CGSize */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		84C6037B2BB1A9DE00062E5A /* CGSize */ = {
-			isa = PBXGroup;
-			children = (
-				84C6037C2BB1A9E700062E5A /* CGSize + sizeThatFits.swift */,
-			);
-			path = CGSize;
-			sourceTree = "<group>";
-		};
 		84CF3B9A2BADD56600B32715 = {
 			isa = PBXGroup;
 			children = (
@@ -166,8 +136,6 @@
 		84CF3BA52BADD56600B32715 /* UIKitPlayground */ = {
 			isa = PBXGroup;
 			children = (
-				843F5C342BEF749A00F45EDC /* ScrollViewTests */,
-				84C6037A2BB1A9D100062E5A /* Extensions */,
 				84CF3BD62BADDF7800B32715 /* Carousel */,
 				84CF3BA62BADD56600B32715 /* AppDelegate.swift */,
 				84CF3BA82BADD56600B32715 /* SceneDelegate.swift */,
@@ -175,7 +143,6 @@
 				84CF3BAF2BADD56700B32715 /* Assets.xcassets */,
 				84CF3BB12BADD56700B32715 /* LaunchScreen.storyboard */,
 				84CF3BB42BADD56700B32715 /* Info.plist */,
-				847685592BBC33E700A05338 /* InterfaceOrientation.swift */,
 			);
 			path = UIKitPlayground;
 			sourceTree = "<group>";
@@ -458,13 +425,10 @@
 			files = (
 				84CF3BAB2BADD56600B32715 /* ViewController.swift in Sources */,
 				84CF3BDA2BADDFF200B32715 /* ImageModel.swift in Sources */,
-				8476855A2BBC33E700A05338 /* InterfaceOrientation.swift in Sources */,
 				84CF3BD82BADDF8B00B32715 /* SelfConfiguringCell.swift in Sources */,
-				843F5C362BEF74AC00F45EDC /* UIScrollViewController.swift in Sources */,
 				84CF3BDC2BADE03E00B32715 /* CarouselCell.swift in Sources */,
 				84CF3BA72BADD56600B32715 /* AppDelegate.swift in Sources */,
 				84CF3BA92BADD56600B32715 /* SceneDelegate.swift in Sources */,
-				84C6037D2BB1A9E700062E5A /* CGSize + sizeThatFits.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

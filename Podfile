@@ -6,7 +6,6 @@ target 'UIKitPlayground' do
   use_frameworks!
 
   pod 'SnapKit'
-  pod 'SwiftSVG', '~> 2.0'
   pod 'ISVImageScrollView'
 
   # Pods for UIKitPlayground
