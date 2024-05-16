@@ -22,6 +22,9 @@
 		84CF3BDE2BADE26700B32715 /* AfterlifeDoor.svg in Resources */ = {isa = PBXBuildFile; fileRef = 84CF3BDD2BADE26700B32715 /* AfterlifeDoor.svg */; };
 		95766EAE9566BBC3535A7B99 /* Pods_UIKitPlaygroundTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B74F18B92D49F550592704F8 /* Pods_UIKitPlaygroundTests.framework */; };
 		E7867ADA28B0CE2B155B37D4 /* Pods_UIKitPlayground_UIKitPlaygroundUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A37248DB9A7896DA40C7CAAD /* Pods_UIKitPlayground_UIKitPlaygroundUITests.framework */; };
+		FC3139932BF635A3000A328C /* DMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3139922BF635A3000A328C /* DMViewController.swift */; };
+		FC3139952BF63679000A328C /* DMCarouselPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3139942BF63679000A328C /* DMCarouselPageViewController.swift */; };
+		FC3139972BF6370C000A328C /* DMCarouselPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3139962BF6370C000A328C /* DMCarouselPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +70,9 @@
 		B74F18B92D49F550592704F8 /* Pods_UIKitPlaygroundTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UIKitPlaygroundTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDAEC74D309B51ADC2B53249 /* Pods-UIKitPlaygroundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIKitPlaygroundTests.release.xcconfig"; path = "Target Support Files/Pods-UIKitPlaygroundTests/Pods-UIKitPlaygroundTests.release.xcconfig"; sourceTree = "<group>"; };
 		D272BFEB02CEF4BC94810E8D /* Pods-UIKitPlayground-UIKitPlaygroundUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIKitPlayground-UIKitPlaygroundUITests.debug.xcconfig"; path = "Target Support Files/Pods-UIKitPlayground-UIKitPlaygroundUITests/Pods-UIKitPlayground-UIKitPlaygroundUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FC3139922BF635A3000A328C /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
+		FC3139942BF63679000A328C /* DMCarouselPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMCarouselPageViewController.swift; sourceTree = "<group>"; };
+		FC3139962BF6370C000A328C /* DMCarouselPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMCarouselPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +146,7 @@
 				84CF3BA62BADD56600B32715 /* AppDelegate.swift */,
 				84CF3BA82BADD56600B32715 /* SceneDelegate.swift */,
 				84CF3BAA2BADD56600B32715 /* ViewController.swift */,
+				FC3139912BF63587000A328C /* DonMag */,
 				84CF3BAF2BADD56700B32715 /* Assets.xcassets */,
 				84CF3BB12BADD56700B32715 /* LaunchScreen.storyboard */,
 				84CF3BB42BADD56700B32715 /* Info.plist */,
@@ -182,6 +189,16 @@
 				B74F18B92D49F550592704F8 /* Pods_UIKitPlaygroundTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FC3139912BF63587000A328C /* DonMag */ = {
+			isa = PBXGroup;
+			children = (
+				FC3139922BF635A3000A328C /* DMViewController.swift */,
+				FC3139942BF63679000A328C /* DMCarouselPageViewController.swift */,
+				FC3139962BF6370C000A328C /* DMCarouselPage.swift */,
+			);
+			path = DonMag;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -423,8 +440,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC3139952BF63679000A328C /* DMCarouselPageViewController.swift in Sources */,
+				FC3139972BF6370C000A328C /* DMCarouselPage.swift in Sources */,
 				84CF3BAB2BADD56600B32715 /* ViewController.swift in Sources */,
 				84CF3BDA2BADDFF200B32715 /* ImageModel.swift in Sources */,
+				FC3139932BF635A3000A328C /* DMViewController.swift in Sources */,
 				84CF3BD82BADDF8B00B32715 /* SelfConfiguringCell.swift in Sources */,
 				84CF3BDC2BADE03E00B32715 /* CarouselCell.swift in Sources */,
 				84CF3BA72BADD56600B32715 /* AppDelegate.swift in Sources */,
