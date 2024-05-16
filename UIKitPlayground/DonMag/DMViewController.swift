@@ -26,9 +26,9 @@ class DMViewController: UIViewController {
 	// we will add a UIPageViewController as a child VC
 	private var thePageVC: DMCarouselPageViewController!
 	
-	// this will be used to change the
-	//	page view controller height based on
+	// this will be used to change the page view controller height based on
 	//	view width-to-height (portrait/landscape)
+	// I know this could be done with a SnapKit object, but I don't use SnapKit...
 	private var pgvcHeight: NSLayoutConstraint!
 
 	// track current view width
@@ -77,8 +77,8 @@ class DMViewController: UIViewController {
 		
 		// only execute this code block if the view frame has changed
 		//	such as on device rotation
-		if curWidth != view.frame.width {
-			curWidth = view.frame.width
+		if curWidth != myContainerView.frame.width {
+			curWidth = myContainerView.frame.width
 			
 			// cannot directly change a constraint multiplier, so
 			//	deactivate / create new / reactivate
