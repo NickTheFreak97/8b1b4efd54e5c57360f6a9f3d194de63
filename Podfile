@@ -7,6 +7,7 @@ target 'UIKitPlayground' do
 
   pod 'SnapKit'
   pod 'ISVImageScrollView'
+  pod "TinyPlayer"
 
   # Pods for UIKitPlayground
 

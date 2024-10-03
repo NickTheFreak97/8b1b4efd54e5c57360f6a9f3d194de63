@@ -1,24 +1,24 @@
 PODS:
   - ISVImageScrollView (0.3.0)
   - SnapKit (5.6.0)
-  - SwiftSVG (2.3.2)
+  - TinyPlayer (1.1.0)
 
 DEPENDENCIES:
   - ISVImageScrollView
   - SnapKit
-  - SwiftSVG (~> 2.0)
+  - TinyPlayer
 
 SPEC REPOS:
   trunk:
     - ISVImageScrollView
     - SnapKit
-    - SwiftSVG
+    - TinyPlayer
 
 SPEC CHECKSUMS:
   ISVImageScrollView: 2c89840496647af985bfc0e09b346b9aa733ecec
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
-  SwiftSVG: ca7f64e403b8ea7ea8eba8c823b83ba4a059834c
+  TinyPlayer: 0ab97bf47f29c439cb8c4adba8c86ab1298d655f
 
-PODFILE CHECKSUM: 6d3cf0c834af0d95bdc2fba182314a27aa4190c6
+PODFILE CHECKSUM: 8465abf0412d32d5f00f68dc0291a3006f14be95
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.2

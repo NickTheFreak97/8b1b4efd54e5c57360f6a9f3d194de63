@@ -47,12 +47,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## SwiftSVG
+## TinyPlayer
 
-
-SwiftSVG
-
-Copyright (c) 2015 Michael Choe, Strauss LLC
+Copyright (c) 2017 xiaohu557 <kevinchen@me.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -1,10 +1,3 @@
-//
-//  DMCarouselPage.swift
-//  UIKitPlayground
-//
-//  Created by Don Mag on 5/16/24.
-//
-
 // This is a UIViewController class, but I find it
 //	more logical to think of it as a "Page"
 

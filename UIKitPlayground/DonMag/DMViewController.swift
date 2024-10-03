@@ -1,16 +1,9 @@
-//
-//  DMViewController.swift
-//  UIKitPlayground
-//
-//  Created by Don Mag on 5/16/24.
-//
-
 import UIKit
 import SnapKit
 
 class DMViewController: UIViewController {
 	
-	private let images = ["police", "shutters", "depot", "cakes", "sign"]
+	private let images = ["step-1.hevc"]// ["police", "shutters", "depot", "cakes", "sign"]
 	
 	// I created smaller, labeled images to make it easier to
 	//	see the animation problem when using UICollectionView
@@ -30,7 +23,8 @@ class DMViewController: UIViewController {
 	//	view width-to-height (portrait/landscape)
 	// I know this could be done with a SnapKit object, but I don't use SnapKit...
 	private var pgvcHeight: NSLayoutConstraint!
-
+    private var pgvcWidth: NSLayoutConstraint!
+    
 	// track current view width
 	private var curWidth: CGFloat = 0.0
 	
@@ -38,20 +32,26 @@ class DMViewController: UIViewController {
 		super.viewDidLoad()
 		
 		// so we can see the view / page view controller framing
-		view.backgroundColor = .systemYellow
+		view.backgroundColor = .systemBackground
 		
 		// add myContainerView
 		myContainerView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(myContainerView)
 		
 		myContainerView.snp.makeConstraints { make in
-			make.left.top.right.equalToSuperview()
+            make.centerX.equalTo(self.view.safeAreaLayoutGuide)
+            make.top.equalTo(self.view.safeAreaLayoutGuide)
 		}
-
+        
+        let size = self.computeContentSizeThatFits()
+        
 		// this will be updated in viewDidLayoutSubviews
-		pgvcHeight = myContainerView.heightAnchor.constraint(equalTo: myContainerView.widthAnchor, multiplier: 9.0 / 16.0)
+        pgvcHeight = myContainerView.heightAnchor.constraint(equalToConstant: size.height)
 		pgvcHeight.isActive = true
 
+        pgvcWidth = myContainerView.widthAnchor.constraint(equalToConstant: size.width)
+        pgvcWidth.isActive = true
+        
 		// instantiate DMCarouselPageViewController and add it as a Child View Controller
 		thePageVC = DMCarouselPageViewController()
 		addChild(thePageVC)
@@ -66,7 +66,7 @@ class DMViewController: UIViewController {
 		myContainerView.addSubview(thePageVC.view)
 		
 		thePageVC.view.snp.makeConstraints { make in
-			make.left.top.right.bottom.equalToSuperview()
+            make.left.top.right.bottom.equalTo(thePageVC.view.superview!.safeAreaLayoutGuide)
 		}
 
 		thePageVC.didMove(toParent: self)
@@ -82,16 +82,41 @@ class DMViewController: UIViewController {
 			
 			// cannot directly change a constraint multiplier, so
 			//	deactivate / create new / reactivate
-			pgvcHeight.isActive = false
-			if view.frame.width > view.frame.height {
-				print("land")
-				pgvcHeight = myContainerView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 0.0)
-			} else {
-				print("port")
-				pgvcHeight = myContainerView.heightAnchor.constraint(equalTo: myContainerView.widthAnchor, multiplier: 9.0 / 16.0)
-			}
-			pgvcHeight.isActive = true
+            let size = self.computeContentSizeThatFits()
+			
+            pgvcHeight.isActive = false
+            pgvcHeight = self.myContainerView.heightAnchor.constraint(equalToConstant: size.height)
+            pgvcHeight.isActive = true
+            
+            pgvcWidth.isActive = false
+            pgvcWidth = self.myContainerView.widthAnchor.constraint(equalToConstant: size.width)
+            pgvcWidth.isActive = true
 		}
 	}
+    
+    
+    final func computeContentSizeThatFits() -> CGSize {
+        return CGSize.sizeThatFits(containerSize: self.view.safeAreaLayoutGuide.layoutFrame.size, containedAR: 16.0/9.0)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        self.view.layoutIfNeeded()
+        
+        coordinator.animate { _ in
+            UIView.animate(withDuration: 0.25) {
+                self.pgvcHeight.isActive = false
+                self.pgvcHeight = self.myContainerView.heightAnchor.constraint(equalToConstant: size.height)
+                self.pgvcHeight.isActive = true
+                
+                self.pgvcWidth.isActive = false
+                self.pgvcWidth = self.myContainerView.widthAnchor.constraint(equalToConstant: size.width)
+                self.pgvcWidth.isActive = true
+                
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
 }
 
