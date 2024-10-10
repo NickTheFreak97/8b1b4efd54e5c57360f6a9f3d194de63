@@ -524,7 +524,7 @@ open class UIVideoOverlayView: UIView {
         self.makeAndScheduleHideOverlayWork()
     }
     
-    public final func pause() {
+    open func pause() {
         self.playButton.setImage(UIImage(systemName:
             "play.fill"
         )!.withRenderingMode(.alwaysOriginal)

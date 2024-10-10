@@ -57,7 +57,15 @@ class DMViewController: UIViewController {
 		addChild(thePageVC)
 		
 		// set the "data"
-		thePageVC.images = self.images
+		thePageVC.medias = [
+            ZTronVideoDescriptor(assetName: "step-1.hevc", withExtension: "mp4"),
+            ZTronImageDescriptor(assetName: "police"),
+            ZTronImageDescriptor(assetName: "shutters"),
+            ZTronImageDescriptor(assetName: "cakes"),
+            ZTronImageDescriptor(assetName: "depot")
+        ]
+        
+        thePageVC.pageFactory = OutlinedMediaFactory()
 		
 		// we need to re-size the page view controller's view to fit our container view
 		thePageVC.view.translatesAutoresizingMaskIntoConstraints = false

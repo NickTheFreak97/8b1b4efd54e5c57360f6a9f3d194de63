@@ -14,6 +14,13 @@
 		84532D872CA4371F005ABDCC /* DMVideoCarouselPage + TinyPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84532D862CA4371F005ABDCC /* DMVideoCarouselPage + TinyPlayerDelegate.swift */; };
 		84532D8B2CA437EB005ABDCC /* Float + Clamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84532D8A2CA437EB005ABDCC /* Float + Clamp.swift */; };
 		8498C89A2C9EE69C0057D13C /* UIShortTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498C8992C9EE69C0057D13C /* UIShortTapGestureRecognizer.swift */; };
+		84C5A7272CB84D2000D56E4D /* VisualMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5A7262CB84D1100D56E4D /* VisualMedia.swift */; };
+		84C5A7292CB84D4500D56E4D /* ZTronImageDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5A7282CB84D3500D56E4D /* ZTronImageDescriptor.swift */; };
+		84C5A72B2CB84E4900D56E4D /* ZTronVideoDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5A72A2CB84E4300D56E4D /* ZTronVideoDescriptor.swift */; };
+		84C5A72D2CB857D700D56E4D /* CountedUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5A72C2CB857CD00D56E4D /* CountedUIViewController.swift */; };
+		84C5A7302CB8610400D56E4D /* MediaFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5A72F2CB860FE00D56E4D /* MediaFactory.swift */; };
+		84C5A7322CB8619E00D56E4D /* BasicMediaFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5A7312CB8619400D56E4D /* BasicMediaFactory.swift */; };
+		84C5A7342CB8634D00D56E4D /* OutlinedMediaFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5A7332CB8634300D56E4D /* OutlinedMediaFactory.swift */; };
 		84C97E132BF7516B0022997B /* CGSize + sizeThatFits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C97E122BF7516B0022997B /* CGSize + sizeThatFits.swift */; };
 		84CF3BA72BADD56600B32715 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF3BA62BADD56600B32715 /* AppDelegate.swift */; };
 		84CF3BA92BADD56600B32715 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF3BA82BADD56600B32715 /* SceneDelegate.swift */; };
@@ -22,9 +29,7 @@
 		84CF3BBE2BADD56700B32715 /* UIKitPlaygroundTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF3BBD2BADD56700B32715 /* UIKitPlaygroundTests.swift */; };
 		84CF3BC82BADD56700B32715 /* UIKitPlaygroundUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF3BC72BADD56700B32715 /* UIKitPlaygroundUITests.swift */; };
 		84CF3BCA2BADD56700B32715 /* UIKitPlaygroundUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF3BC92BADD56700B32715 /* UIKitPlaygroundUITestsLaunchTests.swift */; };
-		84CF3BD82BADDF8B00B32715 /* SelfConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF3BD72BADDF8B00B32715 /* SelfConfiguringCell.swift */; };
-		84CF3BDA2BADDFF200B32715 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF3BD92BADDFF200B32715 /* ImageModel.swift */; };
-		84CF3BDC2BADE03E00B32715 /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF3BDB2BADE03E00B32715 /* CarouselCell.swift */; };
+		84CF3BDC2BADE03E00B32715 /* DMImagePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF3BDB2BADE03E00B32715 /* DMImagePage.swift */; };
 		84CF3BDE2BADE26700B32715 /* AfterlifeDoor.svg in Resources */ = {isa = PBXBuildFile; fileRef = 84CF3BDD2BADE26700B32715 /* AfterlifeDoor.svg */; };
 		84D160B22C9EFDD900C1A6AA /* UIVideoOverlaySkipArrows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D160B12C9EFDD900C1A6AA /* UIVideoOverlaySkipArrows.swift */; };
 		84FF0D2A2C982CA000FB0EA1 /* UIVideoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF0D292C982CA000FB0EA1 /* UIVideoOverlayView.swift */; };
@@ -63,6 +68,13 @@
 		84532D862CA4371F005ABDCC /* DMVideoCarouselPage + TinyPlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DMVideoCarouselPage + TinyPlayerDelegate.swift"; sourceTree = "<group>"; };
 		84532D8A2CA437EB005ABDCC /* Float + Clamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float + Clamp.swift"; sourceTree = "<group>"; };
 		8498C8992C9EE69C0057D13C /* UIShortTapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIShortTapGestureRecognizer.swift; sourceTree = "<group>"; };
+		84C5A7262CB84D1100D56E4D /* VisualMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualMedia.swift; sourceTree = "<group>"; };
+		84C5A7282CB84D3500D56E4D /* ZTronImageDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZTronImageDescriptor.swift; sourceTree = "<group>"; };
+		84C5A72A2CB84E4300D56E4D /* ZTronVideoDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZTronVideoDescriptor.swift; sourceTree = "<group>"; };
+		84C5A72C2CB857CD00D56E4D /* CountedUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountedUIViewController.swift; sourceTree = "<group>"; };
+		84C5A72F2CB860FE00D56E4D /* MediaFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFactory.swift; sourceTree = "<group>"; };
+		84C5A7312CB8619400D56E4D /* BasicMediaFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicMediaFactory.swift; sourceTree = "<group>"; };
+		84C5A7332CB8634300D56E4D /* OutlinedMediaFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedMediaFactory.swift; sourceTree = "<group>"; };
 		84C97E122BF7516B0022997B /* CGSize + sizeThatFits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize + sizeThatFits.swift"; sourceTree = "<group>"; };
 		84CF3BA32BADD56600B32715 /* UIKitPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIKitPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CF3BA62BADD56600B32715 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,9 +87,7 @@
 		84CF3BC32BADD56700B32715 /* UIKitPlaygroundUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIKitPlaygroundUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CF3BC72BADD56700B32715 /* UIKitPlaygroundUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitPlaygroundUITests.swift; sourceTree = "<group>"; };
 		84CF3BC92BADD56700B32715 /* UIKitPlaygroundUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitPlaygroundUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		84CF3BD72BADDF8B00B32715 /* SelfConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfiguringCell.swift; sourceTree = "<group>"; };
-		84CF3BD92BADDFF200B32715 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
-		84CF3BDB2BADE03E00B32715 /* CarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
+		84CF3BDB2BADE03E00B32715 /* DMImagePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMImagePage.swift; sourceTree = "<group>"; };
 		84CF3BDD2BADE26700B32715 /* AfterlifeDoor.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AfterlifeDoor.svg; sourceTree = "<group>"; };
 		84D160B12C9EFDD900C1A6AA /* UIVideoOverlaySkipArrows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVideoOverlaySkipArrows.swift; sourceTree = "<group>"; };
 		84FF0D292C982CA000FB0EA1 /* UIVideoOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVideoOverlayView.swift; sourceTree = "<group>"; };
@@ -160,6 +170,16 @@
 			path = Float;
 			sourceTree = "<group>";
 		};
+		84C5A72E2CB860F500D56E4D /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				84C5A7332CB8634300D56E4D /* OutlinedMediaFactory.swift */,
+				84C5A7312CB8619400D56E4D /* BasicMediaFactory.swift */,
+				84C5A72F2CB860FE00D56E4D /* MediaFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
 		84C97E102BF751530022997B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +225,7 @@
 		84CF3BA52BADD56600B32715 /* UIKitPlayground */ = {
 			isa = PBXGroup;
 			children = (
+				84C5A72E2CB860F500D56E4D /* Factory */,
 				84532D822CA43613005ABDCC /* VideoPage */,
 				84C97E102BF751530022997B /* Extensions */,
 				84CF3BD62BADDF7800B32715 /* Carousel */,
@@ -238,9 +259,10 @@
 		84CF3BD62BADDF7800B32715 /* Carousel */ = {
 			isa = PBXGroup;
 			children = (
-				84CF3BD72BADDF8B00B32715 /* SelfConfiguringCell.swift */,
-				84CF3BD92BADDFF200B32715 /* ImageModel.swift */,
-				84CF3BDB2BADE03E00B32715 /* CarouselCell.swift */,
+				84C5A72A2CB84E4300D56E4D /* ZTronVideoDescriptor.swift */,
+				84C5A7282CB84D3500D56E4D /* ZTronImageDescriptor.swift */,
+				84C5A7262CB84D1100D56E4D /* VisualMedia.swift */,
+				84CF3BDB2BADE03E00B32715 /* DMImagePage.swift */,
 			);
 			path = Carousel;
 			sourceTree = "<group>";
@@ -258,6 +280,7 @@
 		FC3139912BF63587000A328C /* DonMag */ = {
 			isa = PBXGroup;
 			children = (
+				84C5A72C2CB857CD00D56E4D /* CountedUIViewController.swift */,
 				FC3139922BF635A3000A328C /* DMViewController.swift */,
 				FC3139942BF63679000A328C /* DMCarouselPageViewController.swift */,
 				FC3139962BF6370C000A328C /* DMCarouselPage.swift */,
@@ -509,18 +532,23 @@
 				FC3139952BF63679000A328C /* DMCarouselPageViewController.swift in Sources */,
 				FC3139972BF6370C000A328C /* DMCarouselPage.swift in Sources */,
 				84C97E132BF7516B0022997B /* CGSize + sizeThatFits.swift in Sources */,
-				84CF3BDA2BADDFF200B32715 /* ImageModel.swift in Sources */,
 				FC3139932BF635A3000A328C /* DMViewController.swift in Sources */,
 				844A36772C91B64200789DA8 /* DMVideoCarouselPage.swift in Sources */,
+				84C5A7342CB8634D00D56E4D /* OutlinedMediaFactory.swift in Sources */,
 				84D160B22C9EFDD900C1A6AA /* UIVideoOverlaySkipArrows.swift in Sources */,
 				8498C89A2C9EE69C0057D13C /* UIShortTapGestureRecognizer.swift in Sources */,
-				84CF3BD82BADDF8B00B32715 /* SelfConfiguringCell.swift in Sources */,
-				84CF3BDC2BADE03E00B32715 /* CarouselCell.swift in Sources */,
+				84CF3BDC2BADE03E00B32715 /* DMImagePage.swift in Sources */,
+				84C5A72B2CB84E4900D56E4D /* ZTronVideoDescriptor.swift in Sources */,
+				84C5A7302CB8610400D56E4D /* MediaFactory.swift in Sources */,
 				84FF0D2A2C982CA000FB0EA1 /* UIVideoOverlayView.swift in Sources */,
+				84C5A7322CB8619E00D56E4D /* BasicMediaFactory.swift in Sources */,
 				84532D8B2CA437EB005ABDCC /* Float + Clamp.swift in Sources */,
+				84C5A7292CB84D4500D56E4D /* ZTronImageDescriptor.swift in Sources */,
 				84CF3BA72BADD56600B32715 /* AppDelegate.swift in Sources */,
+				84C5A7272CB84D2000D56E4D /* VisualMedia.swift in Sources */,
 				84532D852CA43652005ABDCC /* DMVideoCarouselPage + UIVideoOverlayViewDelegate.swift in Sources */,
 				84CF3BA92BADD56600B32715 /* SceneDelegate.swift in Sources */,
+				84C5A72D2CB857D700D56E4D /* CountedUIViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

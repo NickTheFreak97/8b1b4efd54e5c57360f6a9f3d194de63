@@ -1,0 +1,15 @@
+{
+  "originHash" : "9e5fd59b25307989427f22877f0523e2221747e1704a052217b9f68c48154f11",
+  "pins" : [
+    {
+      "identity" : "tinyplayer6",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/NiccoloBargioni/TinyPlayer6",
+      "state" : {
+        "branch" : "main",
+        "revision" : "caac5efdad7b494b9f104fc73b6f438f28d53c2d"
+      }
+    }
+  ],
+  "version" : 3
+}

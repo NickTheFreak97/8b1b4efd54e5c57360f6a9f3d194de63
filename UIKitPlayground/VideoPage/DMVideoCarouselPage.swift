@@ -8,7 +8,7 @@ import TinyPlayer
 
 // FIXME: Probably seeking needs better accuracy?
 // FIXME: Automatically pause the overlay when the app fades to background
-public class DMVideoCarouselPage: UIViewController {
+public class DMVideoCarouselPage: UIViewController, CountedUIViewController {
     
     private final let uiOverlayColor: UIColor = UIColor(cgColor: CGColor(red: 0, green: 0, blue: 0, alpha: 0.4))
     
@@ -37,9 +37,9 @@ public class DMVideoCarouselPage: UIViewController {
     internal var skipArrows: UIVideoOverlaySkipArrows!
     
     
-    init?(video: String, extension: String) {
+    init?(videoDescriptor: ZTronVideoDescriptor) {
         print("\(#function)")
-        guard let bundleURL = Bundle.main.url(forResource: video, withExtension: "mp4") else { return nil }
+        guard let bundleURL = Bundle.main.url(forResource: videoDescriptor.getAssetName(), withExtension: videoDescriptor.getExtension()) else { return nil }
         
         self.pageIndex = -1
         self.video = bundleURL

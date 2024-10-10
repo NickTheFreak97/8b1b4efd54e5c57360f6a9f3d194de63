@@ -8,12 +8,9 @@
 import UIKit
 
 class DMCarouselPageViewController: UIPageViewController {
-	
-	// let the "main" controller set this data
-	//private let images = ["police", "shutters", "depot", "cakes", "sign"]
-	
-	public var images: [String] = ["step-1.hevc"]
-	
+    public var medias: [any VisualMediaDescriptor] = []
+    public var pageFactory: MediaFactory!
+    
 	override init(
         transitionStyle style: UIPageViewController.TransitionStyle,
         navigationOrientation: UIPageViewController.NavigationOrientation,
@@ -33,18 +30,18 @@ class DMCarouselPageViewController: UIPageViewController {
 		delegate = self
         
         self.view.clipsToBounds = false
-		
-        /*
-		// instantiate and set the first page
-		let vc = DMCarouselPage()
-		vc.loadViewIfNeeded()
-		vc.configure(with: images[0])
-		vc.pageIndex = 0
-		
-		setViewControllers([vc], direction: .forward, animated: false, completion: nil)
-         */
+
+
+        var vc: (any CountedUIViewController)? = nil
         
-        guard let vc = DMVideoCarouselPage(video: images[0], extension: "mp4") else { fatalError("Unable to locate video resource \(images[0])") }
+        switch medias[0].type {
+        case .image:
+            vc = self.pageFactory.makeImagePage(for: self.medias[0] as! ZTronImageDescriptor)
+        case .video:
+            vc = self.pageFactory.makeVideoPage(for: self.medias[0] as! ZTronVideoDescriptor)
+        }
+        
+        guard let vc = vc else { fatalError("Unable to locate video resource \(medias[0])") }
         vc.loadViewIfNeeded()
         vc.pageIndex = 0
         
@@ -57,41 +54,47 @@ extension DMCarouselPageViewController: UIPageViewControllerDataSource {
 	
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
-		// guard let vc = viewController as? DMCarouselPage else { return nil }
-        guard let vc = viewController as? DMVideoCarouselPage else { return nil }
+        guard let vc = viewController as? CountedUIViewController else { return nil }
         
-        let n = (vc.pageIndex - 1 + images.count) % images.count
+        let n = (vc.pageIndex - 1 + medias.count) % medias.count
 
-        guard let newVC = DMVideoCarouselPage(video: images[n], extension: "mp4") else { fatalError("Unable to locate video \(images[n])") }
-        newVC.loadViewIfNeeded()
+        var newVC: (any CountedUIViewController)? = nil
         
+        switch self.medias[n].type {
+        case .image:
+            newVC = self.pageFactory.makeImagePage(for: self.medias[n] as! ZTronImageDescriptor)
+        case .video:
+            newVC = self.pageFactory.makeVideoPage(for: self.medias[n] as! ZTronVideoDescriptor)
+        }
+        
+        guard let newVC = newVC else { fatalError("Unable to locate video \(medias[n])") }
+        newVC.loadViewIfNeeded()
         newVC.pageIndex = n
-        /*
-		let newVC = DMCarouselPage()
-		newVC.loadViewIfNeeded()
-		newVC.configure(with: images[n])
-		newVC.pageIndex = n
-         */
-		
+
 		return newVC
 	}
 	
 	func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
 
-		// guard let vc = viewController as? DMCarouselPage else { return nil }
-        guard let vc = viewController as? DMVideoCarouselPage else { return nil }
+        guard let vc = viewController as? (any CountedUIViewController) else { return nil }
         
-        let n = (vc.pageIndex + 1) % images.count
+        let n = (vc.pageIndex + 1) % medias.count
         
-        guard let newVC = DMVideoCarouselPage(video: images[n], extension: "mp4") else { fatalError("Unable to locate video \(images[n])") }
+        var newVC: (any CountedUIViewController)? = nil
+        
+        switch self.medias[n].type {
+        case .image:
+            newVC = self.pageFactory.makeImagePage(for: self.medias[n] as! ZTronImageDescriptor)
+        case .video:
+            newVC = self.pageFactory.makeVideoPage(for: self.medias[n] as! ZTronVideoDescriptor)
+        }
+        
+        
+        
+        guard let newVC = newVC else { fatalError("Unable to locate video \(medias[n])") }
+        newVC.loadViewIfNeeded()
         newVC.pageIndex = n
-        /*
-		let newVC = DMCarouselPage()
-		newVC.loadViewIfNeeded()
-		newVC.configure(with: images[n])
-		newVC.pageIndex = n
-		*/
-         
+        
 		return newVC
 	}
 }
