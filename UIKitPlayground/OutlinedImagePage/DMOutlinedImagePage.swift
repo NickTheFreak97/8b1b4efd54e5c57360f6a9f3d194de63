@@ -3,88 +3,64 @@ import SnapKit
 import SwiftSVG
 
 public class DMOutlinedImagePage: DMImagePage {
-    private var svgView: UIView!
-    private let svgURL: URL
     private let normalizedAABB: CGRect
-    private var svgLayer: SVGLayer!
+    private let svgView: ZTronSVGView!
+    private var colorPicker: UIColorPickerViewController!
     
     
-    init(imageDescriptor: ZTronOutlinedImageDescriptor) {
-        guard let url = Bundle.main.url(
-            forResource: imageDescriptor.getOutlineAssetName(),
-            withExtension: "svg"
-        ) else { fatalError("No resource named \(imageDescriptor.getOutlineAssetName()).svg. Aborting.") }
-                
-        
+    init(imageDescriptor: ZTronOutlinedImageDescriptor) {        
         self.normalizedAABB = imageDescriptor.getOutlineBoundingBox()
-        self.svgView = nil
-        self.svgURL = url
+        self.svgView = ZTronSVGView(imageDescriptor: imageDescriptor)
+        
+        self.colorPicker = UIColorPickerViewController()
         
         super.init(imageDescriptor: imageDescriptor)
         
+        super.imageView.addSubview(self.svgView)
         super.scrollView.backgroundColor = .red
+        colorPicker.delegate = self
+        
+        colorPicker.modalPresentationStyle = .popover
     }
     
     required public init?(coder: NSCoder) {
         fatalError("Cannot init from storyboard")
     }
-            
+        
     override public func viewDidLayoutSubviews() {
-        print(#function)
         super.viewDidLayoutSubviews()
+        
         self.makeSVGConstraintsIfNeeded()
         self.view.layoutIfNeeded()
     }
         
     private final func makeSVGConstraintsIfNeeded() {
         let sizeThatFits = CGSize.sizeThatFits(containerSize: super.scrollView.bounds.size, containedAR: 16.0/9.0)
-
-        if self.svgView == nil {
-            self.svgView = SVGView(SVGURL: self.svgURL) { svgLayer in
-                self.svgLayer = svgLayer
-                
-                svgLayer.resizeToFit(
-                    CGRect(
-                        x: super.scrollView.bounds.size.width * self.normalizedAABB.origin.x,
-                        y: super.scrollView.bounds.size.height * self.normalizedAABB.origin.y,
-                        width: super.scrollView.bounds.size.width * self.normalizedAABB.size.width,
-                        height: super.scrollView.bounds.size.height * self.normalizedAABB.size.height
-                    )
-                )
-                
-                svgLayer.strokeColor = CGColor.init(red: 1.0, green: 0, blue: 0, alpha: 1.0)
-                svgLayer.fillColor = .none
-                svgLayer.lineWidth = 20.0
-            }
-            
-            super.imageView.addSubview(self.svgView)
-        } else {
-            self.svgView.snp.removeConstraints()
-            
-            self.svgLayer.resizeToFit(
-                CGRect(
-                    x: sizeThatFits.width * self.normalizedAABB.origin.x,
-                    y: sizeThatFits.height * self.normalizedAABB.origin.y,
-                    width: sizeThatFits.width * self.normalizedAABB.size.width,
-                    height: sizeThatFits.height * self.normalizedAABB.size.height
-                )
-            )
-        }
+        
+        self.svgView.snp.removeConstraints()
         
         self.svgView.snp.makeConstraints { make in
-            make.left.equalTo(super.imageView).offset(self.normalizedAABB.origin.x * sizeThatFits.width)
-            make.top.equalTo(super.imageView).offset(self.normalizedAABB.origin.y * sizeThatFits.height)
-            make.width.equalTo(sizeThatFits.width).multipliedBy(self.normalizedAABB.size.width)
-            make.height.equalTo(sizeThatFits.height).multipliedBy(self.normalizedAABB.size.height)
+            make.left.equalTo(svgView.getOrigin(for: sizeThatFits).x)
+            make.top.equalTo(svgView.getOrigin(for: sizeThatFits).y)
+            make.width.equalTo(svgView.getSize(for: sizeThatFits).width)
+            make.height.equalTo(svgView.getSize(for: sizeThatFits).height)
         }
+        
+        self.svgView.resize(for: sizeThatFits)
     }
             
     
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        guard let svgLayer = self.svgLayer else { return }
-        
-        svgLayer.lineWidth = (10.0...50.0).larp(
-            1 - (scrollView.zoomScale - scrollView.minimumZoomScale)/(scrollView.maximumZoomScale - scrollView.minimumZoomScale)
-        )
+        self.svgView.updateForZoom(scrollView)
+    }
+    
+    @objc private func overlayDidTap(_ sender: UITapGestureRecognizer) {
+        present(self.colorPicker, animated: true, completion: nil)
+    }
+}
+
+extension DMOutlinedImagePage: UIColorPickerViewControllerDelegate {
+    public func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
+        self.svgView.strokeColor = color.cgColor
     }
 }

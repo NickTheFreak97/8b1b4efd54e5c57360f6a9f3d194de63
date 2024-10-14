@@ -1,6 +1,6 @@
 import Foundation
 
-class ZTronOutlinedImageDescriptor: ZTronImageDescriptor {
+public class ZTronOutlinedImageDescriptor: ZTronImageDescriptor {
     private let outlineAssetName: String
     private let outlineBoundingBox: CGRect
     

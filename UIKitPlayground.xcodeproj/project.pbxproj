@@ -12,6 +12,8 @@
 		84532D852CA43652005ABDCC /* DMVideoCarouselPage + UIVideoOverlayViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84532D842CA43652005ABDCC /* DMVideoCarouselPage + UIVideoOverlayViewDelegate.swift */; };
 		84532D872CA4371F005ABDCC /* DMVideoCarouselPage + TinyPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84532D862CA4371F005ABDCC /* DMVideoCarouselPage + TinyPlayerDelegate.swift */; };
 		84532D8B2CA437EB005ABDCC /* Float + Clamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84532D8A2CA437EB005ABDCC /* Float + Clamp.swift */; };
+		8461E0692CBD28AA00F5B6DC /* ZTronSVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461E0682CBD289C00F5B6DC /* ZTronSVGView.swift */; };
+		8461E06B2CBD2E8800F5B6DC /* PlaceableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461E06A2CBD2E8300F5B6DC /* PlaceableView.swift */; };
 		846AAFB42CBC3C9300F080A8 /* ZTronOutlinedImageDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AAFB32CBC3C8B00F080A8 /* ZTronOutlinedImageDescriptor.swift */; };
 		846AAFB62CBC3DBA00F080A8 /* DMOutlinedImagePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AAFB52CBC3DB300F080A8 /* DMOutlinedImagePage.swift */; };
 		846B9A1A2CBC66A400C9F36E /* CGFloat + Clamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B9A192CBC669F00C9F36E /* CGFloat + Clamp.swift */; };
@@ -69,6 +71,8 @@
 		84532D842CA43652005ABDCC /* DMVideoCarouselPage + UIVideoOverlayViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DMVideoCarouselPage + UIVideoOverlayViewDelegate.swift"; sourceTree = "<group>"; };
 		84532D862CA4371F005ABDCC /* DMVideoCarouselPage + TinyPlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DMVideoCarouselPage + TinyPlayerDelegate.swift"; sourceTree = "<group>"; };
 		84532D8A2CA437EB005ABDCC /* Float + Clamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float + Clamp.swift"; sourceTree = "<group>"; };
+		8461E0682CBD289C00F5B6DC /* ZTronSVGView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZTronSVGView.swift; sourceTree = "<group>"; };
+		8461E06A2CBD2E8300F5B6DC /* PlaceableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceableView.swift; sourceTree = "<group>"; };
 		846AAFB32CBC3C8B00F080A8 /* ZTronOutlinedImageDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZTronOutlinedImageDescriptor.swift; sourceTree = "<group>"; };
 		846AAFB52CBC3DB300F080A8 /* DMOutlinedImagePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMOutlinedImagePage.swift; sourceTree = "<group>"; };
 		846B9A192CBC669F00C9F36E /* CGFloat + Clamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat + Clamp.swift"; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 		846AAFB22CBC3C7C00F080A8 /* OutlinedImagePage */ = {
 			isa = PBXGroup;
 			children = (
+				8461E06A2CBD2E8300F5B6DC /* PlaceableView.swift */,
+				8461E0682CBD289C00F5B6DC /* ZTronSVGView.swift */,
 				846AAFB52CBC3DB300F080A8 /* DMOutlinedImagePage.swift */,
 				846AAFB32CBC3C8B00F080A8 /* ZTronOutlinedImageDescriptor.swift */,
 			);
@@ -559,6 +565,7 @@
 				FC3139932BF635A3000A328C /* DMViewController.swift in Sources */,
 				846AAFB62CBC3DBA00F080A8 /* DMOutlinedImagePage.swift in Sources */,
 				844A36772C91B64200789DA8 /* DMVideoCarouselPage.swift in Sources */,
+				8461E0692CBD28AA00F5B6DC /* ZTronSVGView.swift in Sources */,
 				84C5A7342CB8634D00D56E4D /* OutlinedMediaFactory.swift in Sources */,
 				84D160B22C9EFDD900C1A6AA /* UIVideoOverlaySkipArrows.swift in Sources */,
 				8498C89A2C9EE69C0057D13C /* UIShortTapGestureRecognizer.swift in Sources */,
@@ -574,6 +581,7 @@
 				84C5A7272CB84D2000D56E4D /* VisualMedia.swift in Sources */,
 				84532D852CA43652005ABDCC /* DMVideoCarouselPage + UIVideoOverlayViewDelegate.swift in Sources */,
 				84CF3BA92BADD56600B32715 /* SceneDelegate.swift in Sources */,
+				8461E06B2CBD2E8800F5B6DC /* PlaceableView.swift in Sources */,
 				846B9A1C2CBC66BC00C9F36E /* CGFloat + lerp.swift in Sources */,
 				846AAFB42CBC3C9300F080A8 /* ZTronOutlinedImageDescriptor.swift in Sources */,
 				84C5A72D2CB857D700D56E4D /* CountedUIViewController.swift in Sources */,
