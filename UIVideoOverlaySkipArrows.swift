@@ -2,7 +2,6 @@ import Foundation
 import UIKit
 import SnapKit
 
-// FIXME: Reset autohide timer at any interaction except single tap (double tap, button tap, menu presentation)
 public class UIVideoOverlaySkipArrows: UIView {
     internal var biggestArrow: UIImageView!
     internal var intermediateArrow: UIImageView!

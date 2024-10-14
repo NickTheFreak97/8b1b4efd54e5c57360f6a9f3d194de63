@@ -3,8 +3,6 @@ import SnapKit
 
 class DMViewController: UIViewController {
 	
-	private let images = ["step-1.hevc"]// ["police", "shutters", "depot", "cakes", "sign"]
-	
 	// I created smaller, labeled images to make it easier to
 	//	see the animation problem when using UICollectionView
 	//private let images = ["police1", "shutters1", "depot1", "cakes1", "sign1"]
@@ -59,10 +57,14 @@ class DMViewController: UIViewController {
 		// set the "data"
 		thePageVC.medias = [
             ZTronVideoDescriptor(assetName: "step-1.hevc", withExtension: "mp4"),
-            ZTronImageDescriptor(assetName: "police"),
-            ZTronImageDescriptor(assetName: "shutters"),
-            ZTronImageDescriptor(assetName: "cakes"),
-            ZTronImageDescriptor(assetName: "depot")
+            ZTronOutlinedImageDescriptor(
+                assetName: "afterlife.door",
+                outlineAssetName: "AfterlifeDoor",
+                outlineBoundingBox: CGRect(
+                    x: 1288.0/2715.0, y: 722.0/1527.0,
+                    width: 19.0/2715.0, height: 32.0/1527.0
+                )
+            ),
         ]
         
         thePageVC.pageFactory = OutlinedMediaFactory()

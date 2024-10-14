@@ -17,12 +17,10 @@ import SnapKit
     @objc optional func playbackProgressDidChangeTo(completionPerc: Float)
     @objc optional func playbackProgressDidEndChanging(completionPerc: Float)
     @objc optional func overlayRequestedSkip(of amount: Float)
-    
-    
 }
 
 open class UIVideoOverlayView: UIView {
-    public final let progressIndicatorColor: CGColor = CGColor(red: 128.0/255.0, green: 0, blue: 0, alpha: 1.0)// CGColor(red: 1.0, green: 43.0/255.0, blue: 188.0/255.0, alpha: 1.0)
+    public final let progressIndicatorColor: CGColor = CGColor(red: 128.0/255.0, green: 0, blue: 0, alpha: 1.0)
     public final let uiOverlayColor: UIColor = UIColor(cgColor: CGColor(red: 0, green: 0, blue: 0, alpha: 0.4))
     public final let thumbRadius: CGFloat = 15.0
     public final let overlayUpTime: CGFloat = 2.0

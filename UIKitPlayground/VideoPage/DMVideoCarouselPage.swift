@@ -154,6 +154,7 @@ public class DMVideoCarouselPage: UIViewController, CountedUIViewController {
     
     internal func dismantle() {
         if self.videoOverlayView.isPlaying {
+            self.videoPlayer.pause()
             self.videoOverlayView.pause()
         }
     }

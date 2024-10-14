@@ -55,7 +55,7 @@ extension DMCarouselPageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
         guard let vc = viewController as? CountedUIViewController else { return nil }
-        
+                
         let n = (vc.pageIndex - 1 + medias.count) % medias.count
 
         var newVC: (any CountedUIViewController)? = nil
@@ -77,7 +77,7 @@ extension DMCarouselPageViewController: UIPageViewControllerDataSource {
 	func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
 
         guard let vc = viewController as? (any CountedUIViewController) else { return nil }
-        
+                
         let n = (vc.pageIndex + 1) % medias.count
         
         var newVC: (any CountedUIViewController)? = nil

@@ -6,9 +6,9 @@ open class DMImagePage: UIViewController, UIScrollViewDelegate, CountedUIViewCon
     public var pageIndex: Int = 0
     
     private var image: String
-    fileprivate let imageView: UIImageView!
+    public let imageView: UIImageView!
     
-    fileprivate let scrollView: ISVImageScrollView = {
+    public let scrollView: ISVImageScrollView = {
         let scrollView = ISVImageScrollView()
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 30.0

@@ -8,6 +8,8 @@ target 'UIKitPlayground' do
   pod 'SnapKit'
   pod 'ISVImageScrollView'
   pod "TinyPlayer"
+  pod 'SwiftSVG', '~> 2.0'
+
 
   # Pods for UIKitPlayground
 

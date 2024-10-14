@@ -4,6 +4,7 @@ public final class OutlinedMediaFactory: MediaFactory {
     }
     
     public func makeImagePage(for imageDescriptor: ZTronImageDescriptor) -> any CountedUIViewController {
-        return DMImagePage(imageDescriptor: imageDescriptor)
+        guard let outlinedDescriptor = imageDescriptor as? ZTronOutlinedImageDescriptor else { fatalError("Expected image descriptor to be an outlined image descriptor.") }
+        return DMOutlinedImagePage(imageDescriptor: outlinedDescriptor)
     }
 }
