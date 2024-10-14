@@ -56,7 +56,6 @@ class DMViewController: UIViewController {
 		
 		// set the "data"
 		thePageVC.medias = [
-            ZTronVideoDescriptor(assetName: "step-1.hevc", withExtension: "mp4"),
             ZTronOutlinedImageDescriptor(
                 assetName: "afterlife.door",
                 outlineAssetName: "AfterlifeDoor",
@@ -65,6 +64,8 @@ class DMViewController: UIViewController {
                     width: 19.0/2715.0, height: 32.0/1527.0
                 )
             ),
+            ZTronVideoDescriptor(assetName: "step-1.hevc", withExtension: "mp4"),
+
         ]
         
         thePageVC.pageFactory = OutlinedMediaFactory()

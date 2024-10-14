@@ -21,23 +21,24 @@ public class DMOutlinedImagePage: DMImagePage {
         self.svgURL = url
         
         super.init(imageDescriptor: imageDescriptor)
+        
+        super.scrollView.backgroundColor = .red
     }
     
     required public init?(coder: NSCoder) {
         fatalError("Cannot init from storyboard")
     }
-        
-    override public func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        coordinator.animate(alongsideTransition: nil) { _ in
-            self.makeSVGConstraintsIfNeeded()
-            super.imageView.setNeedsLayout()
-        }
+            
+    override public func viewDidLayoutSubviews() {
+        print(#function)
+        super.viewDidLayoutSubviews()
+        self.makeSVGConstraintsIfNeeded()
+        self.view.layoutIfNeeded()
     }
-    
         
     private final func makeSVGConstraintsIfNeeded() {
+        let sizeThatFits = CGSize.sizeThatFits(containerSize: super.scrollView.bounds.size, containedAR: 16.0/9.0)
+
         if self.svgView == nil {
             self.svgView = SVGView(SVGURL: self.svgURL) { svgLayer in
                 self.svgLayer = svgLayer
@@ -62,19 +63,19 @@ public class DMOutlinedImagePage: DMImagePage {
             
             self.svgLayer.resizeToFit(
                 CGRect(
-                    x: super.scrollView.bounds.size.width * self.normalizedAABB.origin.x,
-                    y: super.scrollView.bounds.size.height * self.normalizedAABB.origin.y,
-                    width: super.scrollView.bounds.size.width * self.normalizedAABB.size.width,
-                    height: super.scrollView.bounds.size.height * self.normalizedAABB.size.height
+                    x: sizeThatFits.width * self.normalizedAABB.origin.x,
+                    y: sizeThatFits.height * self.normalizedAABB.origin.y,
+                    width: sizeThatFits.width * self.normalizedAABB.size.width,
+                    height: sizeThatFits.height * self.normalizedAABB.size.height
                 )
             )
         }
         
         self.svgView.snp.makeConstraints { make in
-            make.left.equalTo(super.imageView).offset(self.normalizedAABB.origin.x * super.scrollView.bounds.size.width)
-            make.top.equalTo(super.imageView).offset(self.normalizedAABB.origin.y * super.scrollView.bounds.size.height)
-            make.width.equalTo(super.scrollView).multipliedBy(self.normalizedAABB.size.width)
-            make.height.equalTo(super.scrollView).multipliedBy(self.normalizedAABB.size.height)
+            make.left.equalTo(super.imageView).offset(self.normalizedAABB.origin.x * sizeThatFits.width)
+            make.top.equalTo(super.imageView).offset(self.normalizedAABB.origin.y * sizeThatFits.height)
+            make.width.equalTo(sizeThatFits.width).multipliedBy(self.normalizedAABB.size.width)
+            make.height.equalTo(sizeThatFits.height).multipliedBy(self.normalizedAABB.size.height)
         }
     }
             
@@ -82,6 +83,8 @@ public class DMOutlinedImagePage: DMImagePage {
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         guard let svgLayer = self.svgLayer else { return }
         
-        svgLayer.lineWidth = (scrollView.minimumZoomScale...scrollView.maximumZoomScale).larp(scrollView.zoomScale/scrollView.maximumZoomScale)
+        svgLayer.lineWidth = (10.0...50.0).larp(
+            1 - (scrollView.zoomScale - scrollView.minimumZoomScale)/(scrollView.maximumZoomScale - scrollView.minimumZoomScale)
+        )
     }
 }
