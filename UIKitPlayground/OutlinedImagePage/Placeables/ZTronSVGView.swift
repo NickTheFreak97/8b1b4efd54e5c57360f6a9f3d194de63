@@ -9,7 +9,7 @@ public final class ZTronSVGView: UIView, PlaceableView {
     private var svgLayer: SVGLayer!
     private var colorPicker: UIColorPickerViewController!
         
-    public var lineWidth: CGFloat = 5.0 {
+    public var lineWidth: CGFloat = 50.0 {
         didSet {
             guard let svgLayer = self.svgLayer else { return }
             svgLayer.lineWidth = self.lineWidth

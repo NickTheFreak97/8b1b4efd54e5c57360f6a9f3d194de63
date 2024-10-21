@@ -2,25 +2,37 @@ import UIKit
 import SnapKit
 import SwiftSVG
 
-public class DMOutlinedImagePage: DMImagePage {
-    private let normalizedAABB: CGRect
-    private let svgView: ZTronSVGView!
+public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDelegate {
+    private let svgView: ZTronSVGView
     private var colorPicker: UIColorPickerViewController!
     
     
-    init(imageDescriptor: ZTronOutlinedImageDescriptor) {        
-        self.normalizedAABB = imageDescriptor.getOutlineBoundingBox()
+    init(imageDescriptor: ZTronOutlinedImageDescriptor) {
         self.svgView = ZTronSVGView(imageDescriptor: imageDescriptor)
         
         self.colorPicker = UIColorPickerViewController()
         
         super.init(imageDescriptor: imageDescriptor)
         
+        self.svgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.presentColorPicker(_:))))
+
+        
         super.imageView.addSubview(self.svgView)
         super.scrollView.backgroundColor = .red
         colorPicker.delegate = self
         
-        colorPicker.modalPresentationStyle = .popover
+        self.colorPicker.modalPresentationStyle = .popover
+        self.colorPicker.popoverPresentationController?.sourceView = self.svgView
+        self.colorPicker.popoverPresentationController?.delegate = self
+        
+        let testCircle = CircleView(
+            frame: CGRect(
+                origin: .zero,
+                size: CGSize(width: 44, height: 44)
+            )
+        )
+        
+        self.view.addSubview(testCircle)
     }
     
     required public init?(coder: NSCoder) {
@@ -31,6 +43,7 @@ public class DMOutlinedImagePage: DMImagePage {
         super.viewDidLayoutSubviews()
         
         self.makeSVGConstraintsIfNeeded()
+        
         self.view.layoutIfNeeded()
     }
         
@@ -49,18 +62,28 @@ public class DMOutlinedImagePage: DMImagePage {
         self.svgView.resize(for: sizeThatFits)
     }
             
+    @objc private func presentColorPicker(_ sender: UITapGestureRecognizer) {
+        self.colorPicker.modalPresentationStyle = .popover
+        self.colorPicker.popoverPresentationController?.sourceView = self.svgView
+        self.colorPicker.popoverPresentationController?.delegate = self
+
+        self.present(self.colorPicker, animated: true) {
+            print("Color picker is presenting")
+        }
+    }
     
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         self.svgView.updateForZoom(scrollView)
     }
     
-    @objc private func overlayDidTap(_ sender: UITapGestureRecognizer) {
-        present(self.colorPicker, animated: true, completion: nil)
+    public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIDevice.current.userInterfaceIdiom == .pad ? .popover : .none
     }
+
 }
 
 extension DMOutlinedImagePage: UIColorPickerViewControllerDelegate {
     public func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
         self.svgView.strokeColor = color.cgColor
-    }
+    }    
 }
