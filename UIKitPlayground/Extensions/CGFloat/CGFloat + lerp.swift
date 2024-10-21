@@ -2,6 +2,6 @@ import Foundation
 
 public extension ClosedRange<CGFloat> {
     func larp(_ t: CGFloat) -> CGFloat {
-        return t*(self.upperBound - self.lowerBound)
+        return self.lowerBound + t*(self.upperBound - self.lowerBound)
     }
 }

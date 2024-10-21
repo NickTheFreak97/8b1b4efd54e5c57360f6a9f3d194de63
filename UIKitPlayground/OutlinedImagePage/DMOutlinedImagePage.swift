@@ -3,30 +3,33 @@ import SnapKit
 import SwiftSVG
 
 public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDelegate {
-    private let svgView: ZTronSVGView
-    private let circle: CircleView
     private var colorPicker: UIColorPickerViewController!
+    private var placeables: [any PlaceableView] = []
     
     
     init(imageDescriptor: ZTronOutlinedImageDescriptor) {
-        self.svgView = ZTronSVGView(imageDescriptor: imageDescriptor)
+        let theSVG = ZTronSVGView(imageDescriptor: imageDescriptor)
+        self.placeables.append(theSVG)
         
         self.colorPicker = UIColorPickerViewController()
-        self.circle = CircleView(imageDescriptor: imageDescriptor)
+        
+        if imageDescriptor.getOutlineBoundingCircle() != nil {
+            self.placeables.append(CircleView(imageDescriptor: imageDescriptor))
+        }
         
         super.init(imageDescriptor: imageDescriptor)
         
-        self.svgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.presentColorPicker(_:))))
+        theSVG.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.presentColorPicker(_:))))
 
-        
-        super.imageView.addSubview(self.svgView)
-        super.imageView.addSubview(self.circle)
-        
+        self.placeables.forEach {
+            self.imageView.addSubview($0)
+        }
+                
         super.scrollView.backgroundColor = .red
         colorPicker.delegate = self
         
         self.colorPicker.modalPresentationStyle = .popover
-        self.colorPicker.popoverPresentationController?.sourceView = self.svgView
+        self.colorPicker.popoverPresentationController?.sourceView = theSVG
         self.colorPicker.popoverPresentationController?.delegate = self
     }
     
@@ -45,43 +48,33 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
     private final func makePlaceablesConstraintsIfNeeded() {
         let sizeThatFits = CGSize.sizeThatFits(containerSize: super.scrollView.bounds.size, containedAR: 16.0/9.0)
         
-        self.svgView.snp.removeConstraints()
-        
-        self.svgView.snp.makeConstraints { make in
-            make.left.equalTo(svgView.getOrigin(for: sizeThatFits).x)
-            make.top.equalTo(svgView.getOrigin(for: sizeThatFits).y)
-            make.width.equalTo(svgView.getSize(for: sizeThatFits).width)
-            make.height.equalTo(svgView.getSize(for: sizeThatFits).height)
+        self.placeables.forEach { thePlaceable in
+            thePlaceable.snp.removeConstraints()
+            
+            thePlaceable.snp.makeConstraints { make in
+                make.left.equalTo(thePlaceable.getOrigin(for: sizeThatFits).x)
+                make.top.equalTo(thePlaceable.getOrigin(for: sizeThatFits).y)
+                make.width.equalTo(thePlaceable.getSize(for: sizeThatFits).width)
+                make.height.equalTo(thePlaceable.getSize(for: sizeThatFits).height)
+            }
+            
+            thePlaceable.resize(for: sizeThatFits)
         }
-        
-        self.svgView.resize(for: sizeThatFits)
-        
-        
-        self.circle.snp.removeConstraints()
-        
-        self.circle.snp.makeConstraints { make in
-            make.left.equalTo(circle.getOrigin(for: sizeThatFits).x)
-            make.top.equalTo(circle.getOrigin(for: sizeThatFits).y)
-            make.width.equalTo(circle.getSize(for: sizeThatFits).width)
-            make.height.equalTo(circle.getSize(for: sizeThatFits).height)
-        }
-        
-        self.circle.resize(for: sizeThatFits)
     }
             
     @objc private func presentColorPicker(_ sender: UITapGestureRecognizer) {
-        
         self.colorPicker.modalPresentationStyle = .popover
-        self.colorPicker.popoverPresentationController?.sourceView = self.svgView
+        self.colorPicker.popoverPresentationController?.sourceView = self.placeables.first!
         self.colorPicker.popoverPresentationController?.delegate = self
 
         self.present(self.colorPicker, animated: true)
-        self.svgView.isUserInteractionEnabled = false
+        self.placeables.first?.isUserInteractionEnabled = false
     }
     
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        self.svgView.updateForZoom(scrollView)
-        self.circle.updateForZoom(scrollView)
+        self.placeables.forEach {
+            $0.updateForZoom(scrollView)
+        }
     }
     
     public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -89,17 +82,17 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
     }
     
     public func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        self.svgView.isUserInteractionEnabled = true
+        self.placeables.first?.isUserInteractionEnabled = true
     }
 
 }
 
 extension DMOutlinedImagePage: UIColorPickerViewControllerDelegate {
     public func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
-        self.svgView.strokeColor = color.cgColor
-    }
-    
-    public func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-        print("picker dismissal")
+        self.placeables.forEach { thePlaceable in
+            if let thePlaceable = (thePlaceable as? any PlaceableColoredView) {
+                thePlaceable.colorChanged(color)
+            }
+        }
     }
 }

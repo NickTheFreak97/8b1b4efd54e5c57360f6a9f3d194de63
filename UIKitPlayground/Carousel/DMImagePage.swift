@@ -11,7 +11,7 @@ open class DMImagePage: UIViewController, UIScrollViewDelegate, CountedUIViewCon
     public let scrollView: ISVImageScrollView = {
         let scrollView = ISVImageScrollView()
         scrollView.minimumZoomScale = 1.0
-        scrollView.maximumZoomScale = 30.0
+        scrollView.maximumZoomScale = 20.0
         scrollView.zoomScale = 1.0
         scrollView.contentOffset = .zero
         scrollView.bouncesZoom = true

@@ -2,21 +2,24 @@ import Foundation
 import SwiftSVG
 import SnapKit
 
-public final class ZTronSVGView: UIView, PlaceableView {
+public final class ZTronSVGView: UIView, PlaceableColoredView {
     private var svgView: UIView!
     private let svgURL: URL
     private let normalizedAABB: CGRect
     private var svgLayer: SVGLayer!
     private var colorPicker: UIColorPickerViewController!
         
-    public var lineWidth: CGFloat = 50.0 {
+    private static let MIN_LINE_WIDTH: CGFloat = 5
+    private static let MAX_LINE_WIDTH: CGFloat = 37
+    
+    public var lineWidth: CGFloat {
         didSet {
             guard let svgLayer = self.svgLayer else { return }
             svgLayer.lineWidth = self.lineWidth
         }
     }
     
-    public var strokeColor: CGColor = CGColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0) {
+    private var strokeColor: CGColor = CGColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0) {
         didSet {
             guard let svgLayer = self.svgLayer else { return }
             svgLayer.strokeColor = self.strokeColor
@@ -31,6 +34,8 @@ public final class ZTronSVGView: UIView, PlaceableView {
 
         self.svgURL = url
         self.normalizedAABB = imageDescriptor.getOutlineBoundingBox()
+        
+        self.lineWidth = Self.MAX_LINE_WIDTH
         
         super.init(frame: .zero)
         
@@ -85,11 +90,15 @@ public final class ZTronSVGView: UIView, PlaceableView {
     
     public func updateForZoom(_ scrollView: UIScrollView) {
         self.lineWidth = max(
-            5,
-            (5...50.0).larp(
+            Self.MIN_LINE_WIDTH,
+            (Self.MIN_LINE_WIDTH...Self.MAX_LINE_WIDTH).larp(
                 1 - (scrollView.zoomScale - scrollView.minimumZoomScale)/(scrollView.maximumZoomScale - scrollView.minimumZoomScale)
             )
         )
+    }
+    
+    internal func colorChanged(_ color: UIColor) {
+        self.strokeColor = color.cgColor
     }
     
 }

@@ -1,10 +1,29 @@
 import UIKit
 
-internal final class CircleView: UIView, PlaceableView {
+// TODO: Size multiplier only applies when the BoundingCircle of imageConfiguration is nil, larp between the specified and minimum bounding circle otherwise.
+internal final class CircleView: UIView, PlaceableColoredView {
+    
+    static private let MIN_OUTLINE_SIZE: CGFloat = 0.05
+    static private let MAX_OUTLINE_SIZE: CGFloat = 0.75
+    
+    static private let MIN_SIZE_MULTIPLIER: CGFloat = 1.0
+    static private let MAX_SIZE_MULTIPLIER: CGFloat = 1.5
+    
     weak private var circleLayer: CAShapeLayer?
     private let circleCenter: CGPoint
     private var radius: CGFloat
-        
+    private var sizeMultiplier: CGFloat {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    internal var strokeColor: CGColor = .init(red: 1, green: 0, blue: 1, alpha: 1) {
+        didSet {
+            guard let circleLayer = self.circleLayer else { return }
+            circleLayer.strokeColor = self.strokeColor
+        }
+    }
     
     internal init (imageDescriptor: ZTronOutlinedImageDescriptor) {
         
@@ -46,12 +65,13 @@ internal final class CircleView: UIView, PlaceableView {
         self.circleCenter = center!
         self.radius = diameter!/2.0
         
+        self.sizeMultiplier = Self.MAX_SIZE_MULTIPLIER
+        
         super.init(frame: .zero)
 
         self.circleLayer = self.makeCircleLayer()
 
         self.isUserInteractionEnabled = false // Otherwise clicks inside won't propagate
-        print("Circle: \(center!), r: \(radius)")
     }
     
     
@@ -62,16 +82,8 @@ internal final class CircleView: UIView, PlaceableView {
         
         let circleLayer = CAShapeLayer()
                 
-        circleLayer.path = UIBezierPath(
-            arcCenter: self.center,
-            radius: self.bounds.size.width / 2,
-            startAngle: 0,
-            endAngle: 2*CGFloat.pi,
-            clockwise: true
-        ).cgPath
-        
+        self.configureLayer(circleLayer)
         circleLayer.lineWidth = 0.5
-        circleLayer.strokeColor = .init(red: 1.0, green: 0, blue: 0, alpha: 1)
         circleLayer.fillColor = .none
         
         self.layer.addSublayer(circleLayer)
@@ -83,7 +95,10 @@ internal final class CircleView: UIView, PlaceableView {
         super.layoutSubviews()
         
         guard let circleLayer = self.circleLayer else { return }
-        
+        self.configureLayer(circleLayer)
+    }
+    
+    private final func configureLayer(_ circleLayer: CAShapeLayer) {
         circleLayer.frame = self.bounds
         
         circleLayer.anchorPoint = CGPoint(x: 0, y: 0)
@@ -94,15 +109,14 @@ internal final class CircleView: UIView, PlaceableView {
         
         circleLayer.path = UIBezierPath(
             arcCenter: .zero,
-            radius: self.bounds.size.width / 2.0,
+            radius: self.bounds.size.width / 2.0  * self.sizeMultiplier,
             startAngle: 0,
             endAngle: 2 * CGFloat.pi,
             clockwise: true
         ).cgPath
         
-        circleLayer.strokeColor = .init(red: 1, green: 0, blue: 1, alpha: 1)
-        
-        print(self.circleLayer!.frame, self.bounds)
+        circleLayer.strokeColor = self.strokeColor
+
     }
     
     required init?(coder: NSCoder) {
@@ -110,43 +124,45 @@ internal final class CircleView: UIView, PlaceableView {
     }
     
     internal final func getOrigin(for containerSize: CGSize) -> CGPoint {
-        let estimatedWidth = 2 * self.radius * containerSize.width
-        let estimatedHeight = 2 * self.radius * containerSize.height
+        let estimatedWidth = 2 * self.radius * sizeMultiplier * containerSize.width
+        let estimatedHeight = 2 * self.radius * sizeMultiplier * containerSize.height
         
         let diameter = max(estimatedWidth, estimatedHeight)
 
         
-        let retval = CGPoint(
+        return CGPoint(
             x: (self.circleCenter.x * containerSize.width - diameter / 2.0),
             y: (self.circleCenter.y * containerSize.height  - diameter / 2.0)
         )
-        
-        print("Circle origin: \(retval)")
-        return retval
     }
     
     internal final func getSize(for containerSize: CGSize) -> CGSize {
-        let estimatedWidth = 2 * self.radius * containerSize.width
-        let estimatedHeight = 2 * self.radius * containerSize.height
+        let estimatedWidth = 2 * self.radius * containerSize.width * sizeMultiplier
+        let estimatedHeight = 2 * self.radius * containerSize.height * sizeMultiplier
         
         let diameter = max(estimatedWidth, estimatedHeight)
         
-        let retval = CGSize(
+        return CGSize(
             width: diameter,
             height: diameter
         )
-        
-        print("Circle size: \(retval)")
-        
-        return retval
     }
     
     internal final func updateForZoom(_ scrollView: UIScrollView) {
-        print(#function)
+        let zoomProgress = (scrollView.zoomScale - scrollView.minimumZoomScale)/(scrollView.maximumZoomScale - scrollView.minimumZoomScale)
+
+        self.circleLayer?.lineWidth = max(
+            Self.MIN_OUTLINE_SIZE,
+            (Self.MIN_OUTLINE_SIZE...Self.MAX_OUTLINE_SIZE).larp(1 - zoomProgress)
+        )
+        
+        self.sizeMultiplier = max(
+            Self.MIN_SIZE_MULTIPLIER,
+            (Self.MIN_SIZE_MULTIPLIER...Self.MAX_SIZE_MULTIPLIER).larp((1-zoomProgress)*(1-zoomProgress)*(1-zoomProgress))
+        )
     }
     
     internal final func resize(for containerSize: CGSize) {
-        print(#function)
         let frameForSize = CGRect(
             origin: self.getOrigin(for: containerSize),
             size: self.getSize(for: containerSize)
@@ -158,5 +174,8 @@ internal final class CircleView: UIView, PlaceableView {
         )
     }
     
-    
+    internal final func colorChanged(_ color: UIColor) {
+        self.strokeColor = color.cgColor
+    }
 }
+
