@@ -7,7 +7,7 @@ internal final class CircleView: UIView, PlaceableColoredView {
     static private let MAX_OUTLINE_SIZE: CGFloat = 0.75
     
     static private let MIN_SIZE_MULTIPLIER: CGFloat = 1.0
-    static private let MAX_SIZE_MULTIPLIER: CGFloat = 1.5
+    static private let MAX_SIZE_MULTIPLIER: CGFloat = 3
     
     weak private var circleLayer: CAShapeLayer?
     private let circleCenter: CGPoint
@@ -17,6 +17,7 @@ internal final class CircleView: UIView, PlaceableColoredView {
             self.setNeedsLayout()
         }
     }
+    private var containerSizeEstimate: CGSize?
     
     internal var strokeColor: CGColor = .init(red: 1, green: 0, blue: 1, alpha: 1) {
         didSet {
@@ -66,6 +67,7 @@ internal final class CircleView: UIView, PlaceableColoredView {
         self.radius = diameter!/2.0
         
         self.sizeMultiplier = Self.MAX_SIZE_MULTIPLIER
+        self.containerSizeEstimate = nil
         
         super.init(frame: .zero)
 
@@ -101,6 +103,8 @@ internal final class CircleView: UIView, PlaceableColoredView {
     private final func configureLayer(_ circleLayer: CAShapeLayer) {
         circleLayer.frame = self.bounds
         
+        let containerSize = self.containerSizeEstimate ?? self.bounds.size
+        
         circleLayer.anchorPoint = CGPoint(x: 0, y: 0)
         circleLayer.position = CGPoint(
             x: self.bounds.size.width / 2.0,
@@ -109,7 +113,7 @@ internal final class CircleView: UIView, PlaceableColoredView {
         
         circleLayer.path = UIBezierPath(
             arcCenter: .zero,
-            radius: self.bounds.size.width / 2.0  * self.sizeMultiplier,
+            radius: self.radius * self.sizeMultiplier * containerSize.width,
             startAngle: 0,
             endAngle: 2 * CGFloat.pi,
             clockwise: true
@@ -124,6 +128,8 @@ internal final class CircleView: UIView, PlaceableColoredView {
     }
     
     internal final func getOrigin(for containerSize: CGSize) -> CGPoint {
+        self.containerSizeEstimate = containerSize
+        
         let estimatedWidth = 2 * self.radius * sizeMultiplier * containerSize.width
         let estimatedHeight = 2 * self.radius * sizeMultiplier * containerSize.height
         
@@ -137,6 +143,8 @@ internal final class CircleView: UIView, PlaceableColoredView {
     }
     
     internal final func getSize(for containerSize: CGSize) -> CGSize {
+        self.containerSizeEstimate = containerSize
+
         let estimatedWidth = 2 * self.radius * containerSize.width * sizeMultiplier
         let estimatedHeight = 2 * self.radius * containerSize.height * sizeMultiplier
         
@@ -163,6 +171,8 @@ internal final class CircleView: UIView, PlaceableColoredView {
     }
     
     internal final func resize(for containerSize: CGSize) {
+        self.containerSizeEstimate = containerSize
+
         let frameForSize = CGRect(
             origin: self.getOrigin(for: containerSize),
             size: self.getSize(for: containerSize)
