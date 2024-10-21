@@ -62,7 +62,8 @@ class DMViewController: UIViewController {
                 outlineBoundingBox: CGRect(
                     x: 1288.0/2715.0, y: 722.0/1527.0,
                     width: 19.0/2715.0, height: 32.0/1527.0
-                )
+                ),
+                boundingCircle: .init(idleDiameter: nil, normalizedCenter: nil)
             ),
             ZTronVideoDescriptor(assetName: "step-1.hevc", withExtension: "mp4"),
 

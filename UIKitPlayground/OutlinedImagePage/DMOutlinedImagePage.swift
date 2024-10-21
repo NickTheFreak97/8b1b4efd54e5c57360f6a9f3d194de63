@@ -4,6 +4,7 @@ import SwiftSVG
 
 public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDelegate {
     private let svgView: ZTronSVGView
+    private let circle: CircleView
     private var colorPicker: UIColorPickerViewController!
     
     
@@ -11,6 +12,7 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
         self.svgView = ZTronSVGView(imageDescriptor: imageDescriptor)
         
         self.colorPicker = UIColorPickerViewController()
+        self.circle = CircleView(imageDescriptor: imageDescriptor)
         
         super.init(imageDescriptor: imageDescriptor)
         
@@ -18,21 +20,14 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
 
         
         super.imageView.addSubview(self.svgView)
+        super.imageView.addSubview(self.circle)
+        
         super.scrollView.backgroundColor = .red
         colorPicker.delegate = self
         
         self.colorPicker.modalPresentationStyle = .popover
         self.colorPicker.popoverPresentationController?.sourceView = self.svgView
         self.colorPicker.popoverPresentationController?.delegate = self
-        
-        let testCircle = CircleView(
-            frame: CGRect(
-                origin: .zero,
-                size: CGSize(width: 44, height: 44)
-            )
-        )
-        
-        self.view.addSubview(testCircle)
     }
     
     required public init?(coder: NSCoder) {
@@ -42,12 +37,12 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.makeSVGConstraintsIfNeeded()
+        self.makePlaceablesConstraintsIfNeeded()
         
         self.view.layoutIfNeeded()
     }
         
-    private final func makeSVGConstraintsIfNeeded() {
+    private final func makePlaceablesConstraintsIfNeeded() {
         let sizeThatFits = CGSize.sizeThatFits(containerSize: super.scrollView.bounds.size, containedAR: 16.0/9.0)
         
         self.svgView.snp.removeConstraints()
@@ -60,24 +55,41 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
         }
         
         self.svgView.resize(for: sizeThatFits)
+        
+        
+        self.circle.snp.removeConstraints()
+        
+        self.circle.snp.makeConstraints { make in
+            make.left.equalTo(circle.getOrigin(for: sizeThatFits).x)
+            make.top.equalTo(circle.getOrigin(for: sizeThatFits).y)
+            make.width.equalTo(circle.getSize(for: sizeThatFits).width)
+            make.height.equalTo(circle.getSize(for: sizeThatFits).height)
+        }
+        
+        self.circle.resize(for: sizeThatFits)
     }
             
     @objc private func presentColorPicker(_ sender: UITapGestureRecognizer) {
+        
         self.colorPicker.modalPresentationStyle = .popover
         self.colorPicker.popoverPresentationController?.sourceView = self.svgView
         self.colorPicker.popoverPresentationController?.delegate = self
 
-        self.present(self.colorPicker, animated: true) {
-            print("Color picker is presenting")
-        }
+        self.present(self.colorPicker, animated: true)
+        self.svgView.isUserInteractionEnabled = false
     }
     
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         self.svgView.updateForZoom(scrollView)
+        self.circle.updateForZoom(scrollView)
     }
     
     public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIDevice.current.userInterfaceIdiom == .pad ? .popover : .none
+    }
+    
+    public func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        self.svgView.isUserInteractionEnabled = true
     }
 
 }
@@ -85,5 +97,9 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
 extension DMOutlinedImagePage: UIColorPickerViewControllerDelegate {
     public func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
         self.svgView.strokeColor = color.cgColor
-    }    
+    }
+    
+    public func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        print("picker dismissal")
+    }
 }

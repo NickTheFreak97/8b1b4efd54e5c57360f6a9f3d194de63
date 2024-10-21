@@ -3,8 +3,14 @@ import Foundation
 public class ZTronOutlinedImageDescriptor: ZTronImageDescriptor {
     private let outlineAssetName: String
     private let outlineBoundingBox: CGRect
+    private let boundingCircle: ZTronBoundingCircle
     
-    public init(assetName: String, outlineAssetName: String, outlineBoundingBox: CGRect) {
+    public init(
+        assetName: String,
+        outlineAssetName: String,
+        outlineBoundingBox: CGRect,
+        boundingCircle: ZTronBoundingCircle
+    ) {
         assert(outlineBoundingBox.origin.x >= 0 && outlineBoundingBox.origin.x <= 1)
         assert(outlineBoundingBox.origin.y >= 0 && outlineBoundingBox.origin.y <= 1)
         assert(outlineBoundingBox.size.width >= 0 && outlineBoundingBox.size.width <= 1)
@@ -12,6 +18,7 @@ public class ZTronOutlinedImageDescriptor: ZTronImageDescriptor {
 
         self.outlineAssetName = outlineAssetName
         self.outlineBoundingBox = outlineBoundingBox
+        self.boundingCircle = boundingCircle
         
         super.init(assetName: assetName)
     }
@@ -23,4 +30,28 @@ public class ZTronOutlinedImageDescriptor: ZTronImageDescriptor {
     public func getOutlineBoundingBox() -> CGRect {
         return self.outlineBoundingBox
     }
+    
+    public func getOutlineBoundingCircle() -> ZTronBoundingCircle?  {
+        return self.boundingCircle
+    }
+}
+
+public struct ZTronBoundingCircle {
+    internal let idleDiameter: Double?
+    internal let normalizedCenter: CGPoint?
+
+    init(idleDiameter: Double?, normalizedCenter: CGPoint?) {
+        self.idleDiameter = idleDiameter
+        self.normalizedCenter = normalizedCenter
+    }
+    
+    internal func getIdleDiameter() -> Double? {
+        return self.idleDiameter
+    }
+    
+    internal func getNormalizedCenter() -> CGPoint? {
+        return self.normalizedCenter
+    }
+    
+    
 }
