@@ -12,7 +12,11 @@ public final class BoundingCircleInteractionsManager: MSAInteractionsManager, @u
     
     
     public func peerDiscovered(eventArgs: ZTronObservation.BroadcastArgs) {
+        guard let owner = self.owner else { return }
         
+        if let image = eventArgs.getSource() as? DMOutlinedImagePage {
+            self.mediator?.signalInterest(owner, to: image)
+        }
     }
     
     public func peerDidAttach(eventArgs: ZTronObservation.BroadcastArgs) {
@@ -20,7 +24,10 @@ public final class BoundingCircleInteractionsManager: MSAInteractionsManager, @u
     }
     
     public func notify(args: ZTronObservation.BroadcastArgs) {
-        
+        if let image = args.getSource() as? DMOutlinedImagePage {
+            print("Updating outline color")
+            self.owner?.setStrokeColor(image.getSelectedColor().cgColor)
+        }
     }
     
     public func willCheckout(args: ZTronObservation.BroadcastArgs) {
@@ -34,5 +41,4 @@ public final class BoundingCircleInteractionsManager: MSAInteractionsManager, @u
     public func getMediator() -> (any ZTronObservation.Mediator)? {
         return self.mediator
     }
-    
 }

@@ -12,6 +12,8 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
     private var placeables: [any PlaceableView] = []
     private let mediator: MSAMediator = MSAMediator()
     
+    private var selectedColor: UIColor = .clear
+    
     init(
         imageDescriptor: ZTronOutlinedImageDescriptor
     ) {
@@ -129,14 +131,18 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
         interactionsManager.setup()
     }
 
+    deinit {
+        self.delegate?.detach()
+    }
+    
+    public func getSelectedColor() -> UIColor {
+        return self.selectedColor
+    }
 }
 
 extension DMOutlinedImagePage: UIColorPickerViewControllerDelegate {
     public func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
-        self.placeables.forEach { thePlaceable in
-            if let thePlaceable = (thePlaceable as? any PlaceableColoredView) {
-                thePlaceable.colorChanged(color)
-            }
-        }
+        self.selectedColor = color
+        self.delegate?.pushNotification(eventArgs: BroadcastArgs(source: self))
     }
 }

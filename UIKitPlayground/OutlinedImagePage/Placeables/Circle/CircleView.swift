@@ -23,7 +23,7 @@ internal final class CircleView: UIView, PlaceableColoredView, Component, Sendab
     }
     private var containerSizeEstimate: CGSize?
     
-    internal var strokeColor: CGColor = .init(red: 1, green: 0, blue: 1, alpha: 1) {
+    private var strokeColor: CGColor = .init(red: 1, green: 0, blue: 1, alpha: 1) {
         didSet {
             guard let circleLayer = self.circleLayer else { return }
             circleLayer.strokeColor = self.strokeColor
@@ -226,5 +226,12 @@ internal final class CircleView: UIView, PlaceableColoredView, Component, Sendab
         interactionsManager.setup()
     }
     
+    public final func setStrokeColor(_ color: CGColor) {
+        self.strokeColor = color
+    }
+ 
+    deinit {
+        self.delegate?.detach()
+    }
 }
 

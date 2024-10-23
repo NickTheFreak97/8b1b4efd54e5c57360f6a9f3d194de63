@@ -136,4 +136,12 @@ public final class ZTronSVGView: UIView, PlaceableColoredView, Component, Sendab
         interactionsManager.setup()
     }
     
+    deinit {
+        self.delegate?.detach()
+    }
+    
+    public final func setStrokeColor(_ color: CGColor) {
+        self.strokeColor = color
+    }
+    
 }
