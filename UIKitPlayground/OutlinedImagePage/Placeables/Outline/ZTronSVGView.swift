@@ -2,7 +2,11 @@ import Foundation
 import SwiftSVG
 import SnapKit
 
-public final class ZTronSVGView: UIView, PlaceableColoredView {
+import ZTronObservation
+
+public final class ZTronSVGView: UIView, PlaceableColoredView, Component, Sendable {
+    public let id: String = "outline"
+    
     private var svgView: UIView!
     private let svgURL: URL
     private let normalizedAABB: CGRect
@@ -11,6 +15,8 @@ public final class ZTronSVGView: UIView, PlaceableColoredView {
         
     private static let MIN_LINE_WIDTH: CGFloat = 5
     private static let MAX_LINE_WIDTH: CGFloat = 37
+    
+    private var delegate: OutlineInteractionsManager? = nil
     
     public var lineWidth: CGFloat {
         didSet {
@@ -99,6 +105,35 @@ public final class ZTronSVGView: UIView, PlaceableColoredView {
     
     internal func colorChanged(_ color: UIColor) {
         self.strokeColor = color.cgColor
+    }
+    
+    public func getDelegate() -> (any ZTronObservation.InteractionsManager)? {
+        return self.delegate
+    }
+    
+    public func setDelegate(_ interactionsManager: (any ZTronObservation.InteractionsManager)?) {
+        guard let interactionsManager = interactionsManager as? OutlineInteractionsManager else {
+            // Still it might be that interactionsmanager == nil
+            if interactionsManager == nil {
+                if let delegate = self.delegate {
+                    delegate.detach()
+                }
+            } else {
+                fatalError("Provide an interaction manager of type \(String(describing: OutlineInteractionsManager.self))")
+            }
+            
+            self.delegate = nil
+            
+            return
+        }
+                
+        if let delegate = self.delegate {
+            delegate.detach()
+        }
+        
+        self.delegate = interactionsManager
+        
+        interactionsManager.setup()
     }
     
 }

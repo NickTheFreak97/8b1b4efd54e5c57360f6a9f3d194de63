@@ -1,7 +1,11 @@
 import UIKit
+import ZTronObservation
 
 // TODO: Size multiplier only applies when the BoundingCircle of imageConfiguration is nil, larp between the specified and minimum bounding circle otherwise.
-internal final class CircleView: UIView, PlaceableColoredView {
+internal final class CircleView: UIView, PlaceableColoredView, Component, Sendable {
+    internal var id: String = "bounding circle"
+    
+    private var delegate: BoundingCircleInteractionsManager?
     
     static private let MIN_OUTLINE_SIZE: CGFloat = 0.05
     static private let MAX_OUTLINE_SIZE: CGFloat = 0.75
@@ -191,5 +195,36 @@ internal final class CircleView: UIView, PlaceableColoredView {
     internal final func colorChanged(_ color: UIColor) {
         self.strokeColor = color.cgColor
     }
+    
+    internal func getDelegate() -> (any ZTronObservation.InteractionsManager)? {
+        return self.delegate
+    }
+    
+    func setDelegate(_ interactionsManager: (any ZTronObservation.InteractionsManager)?) {
+        
+        guard let interactionsManager = interactionsManager as? BoundingCircleInteractionsManager else {
+            // Still it might be that interactionsmanager == nil
+            if interactionsManager == nil {
+                if let delegate = self.delegate {
+                    delegate.detach()
+                }
+            } else {
+                fatalError("Provide an interaction manager of type \(String(describing: BoundingCircleInteractionsManager.self))")
+            }
+            
+            self.delegate = nil
+            
+            return
+        }
+                
+        if let delegate = self.delegate {
+            delegate.detach()
+        }
+        
+        self.delegate = interactionsManager
+        
+        interactionsManager.setup()
+    }
+    
 }
 

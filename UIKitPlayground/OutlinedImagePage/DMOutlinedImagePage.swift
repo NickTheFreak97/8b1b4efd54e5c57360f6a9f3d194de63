@@ -2,25 +2,34 @@ import UIKit
 import SnapKit
 import SwiftSVG
 
-public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDelegate {
+import ZTronObservation
+
+public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDelegate, Component {
+    public let id: String
+    private var delegate: (any MSAInteractionsManager)?
+    
     private var colorPicker: UIColorPickerViewController!
     private var placeables: [any PlaceableView] = []
-    
+    private let mediator: MSAMediator = MSAMediator()
     
     init(
         imageDescriptor: ZTronOutlinedImageDescriptor
     ) {
+        self.id = imageDescriptor.getAssetName()
         
         let descriptors = imageDescriptor.getPlaceableDescriptors()
-        let placeablesFactory = ZTronBasicPlaceableFactory()
+        let placeablesFactory = ZTronBasicPlaceableFactory(mediator: self.mediator)
                         
         self.colorPicker = UIColorPickerViewController()
                 
         super.init(imageDescriptor: imageDescriptor)
         
+        self.setDelegate(ImagePageInteractionsManager(owner: self, mediator: self.mediator))
+
         descriptors.forEach { descriptor in
             self.placeables.append(placeablesFactory.make(placeable: descriptor))
         }
+        
         
         assert(self.placeables.count > 0)
         
@@ -29,7 +38,8 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
         self.placeables.forEach {
             self.imageView.addSubview($0)
         }
-                
+        
+        
         super.scrollView.backgroundColor = .red
         colorPicker.delegate = self
         
@@ -88,6 +98,35 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
     
     public func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
         self.placeables.first?.isUserInteractionEnabled = true
+    }
+    
+    public final func getDelegate() -> (any ZTronObservation.InteractionsManager)? {
+        return self.delegate
+    }
+    
+    public final func setDelegate(_ interactionsManager: (any ZTronObservation.InteractionsManager)?) {
+        guard let interactionsManager = interactionsManager as? ImagePageInteractionsManager else {
+            // Still it might be that interactionsmanager == nil
+            if interactionsManager == nil {
+                if let delegate = self.delegate {
+                    delegate.detach()
+                }
+            } else {
+                fatalError("Provide an interaction manager of type \(String(describing: ImagePageInteractionsManager.self))")
+            }
+            
+            self.delegate = nil
+            
+            return
+        }
+                
+        if let delegate = self.delegate {
+            delegate.detach()
+        }
+        
+        self.delegate = interactionsManager
+        
+        interactionsManager.setup()
     }
 
 }
