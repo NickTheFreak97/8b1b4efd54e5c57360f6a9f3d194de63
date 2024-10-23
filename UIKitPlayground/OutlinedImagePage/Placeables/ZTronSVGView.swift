@@ -26,14 +26,14 @@ public final class ZTronSVGView: UIView, PlaceableColoredView {
         }
     }
     
-    public init(imageDescriptor: ZTronOutlinedImageDescriptor) {
+    public init(descriptor: PlaceableOutlineDescriptor) {
         guard let url = Bundle.main.url(
-            forResource: imageDescriptor.getOutlineAssetName(),
+            forResource: descriptor.getOutlineAssetName(),
             withExtension: "svg"
-        ) else { fatalError("No resource named \(imageDescriptor.getOutlineAssetName()).svg. Aborting.") }
+        ) else { fatalError("No resource named \(descriptor.getOutlineAssetName()).svg. Aborting.") }
 
         self.svgURL = url
-        self.normalizedAABB = imageDescriptor.getOutlineBoundingBox()
+        self.normalizedAABB = descriptor.getOutlineBoundingBox()
         
         self.lineWidth = Self.MAX_LINE_WIDTH
         

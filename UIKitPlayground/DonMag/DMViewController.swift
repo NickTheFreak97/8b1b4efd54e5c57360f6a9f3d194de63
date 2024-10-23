@@ -55,16 +55,31 @@ class DMViewController: UIViewController {
 		addChild(thePageVC)
 		
 		// set the "data"
+        let afterlifeBB = CGRect(
+            x: 1288.0/2715.0, y: 722.0/1527.0,
+            width: 19.0/2715.0, height: 32.0/1527.0
+        )
+        
 		thePageVC.medias = [
             ZTronOutlinedImageDescriptor(
                 assetName: "afterlife.door",
-                outlineAssetName: "AfterlifeDoor",
-                outlineBoundingBox: CGRect(
-                    x: 1288.0/2715.0, y: 722.0/1527.0,
-                    width: 19.0/2715.0, height: 32.0/1527.0
-                ),
-                boundingCircle: .init(idleDiameter: nil, normalizedCenter: nil)
+                placeables: [
+                    PlaceableOutlineDescriptor(
+                        outlineAssetName: "AfterlifeDoor",
+                        outlineBoundingBox: afterlifeBB
+                    ),
+                    
+                    PlaceableBoundingCircleDescriptor(
+                        boundingCircle: ZTronBoundingCircle(
+                            idleDiameter: nil,
+                            normalizedCenter: nil
+                        ),
+                        
+                        normalizedBoundingBox: afterlifeBB
+                    )
+                ]
             ),
+            
             ZTronVideoDescriptor(assetName: "step-1.hevc", withExtension: "mp4"),
 
         ]

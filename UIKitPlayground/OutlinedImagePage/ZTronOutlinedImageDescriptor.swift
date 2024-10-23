@@ -1,42 +1,22 @@
 import Foundation
 
-public class ZTronOutlinedImageDescriptor: ZTronImageDescriptor {
-    private let outlineAssetName: String
-    private let outlineBoundingBox: CGRect
-    private let boundingCircle: ZTronBoundingCircle
+public final class ZTronOutlinedImageDescriptor: ZTronImageDescriptor {
+    private let placeablesDescriptors: [any PlaceableDescriptor]
     
     public init(
         assetName: String,
-        outlineAssetName: String,
-        outlineBoundingBox: CGRect,
-        boundingCircle: ZTronBoundingCircle
+        placeables: [any PlaceableDescriptor]
     ) {
-        assert(outlineBoundingBox.origin.x >= 0 && outlineBoundingBox.origin.x <= 1)
-        assert(outlineBoundingBox.origin.y >= 0 && outlineBoundingBox.origin.y <= 1)
-        assert(outlineBoundingBox.size.width >= 0 && outlineBoundingBox.size.width <= 1)
-        assert(outlineBoundingBox.size.height >= 0 && outlineBoundingBox.size.height <= 1)
-
-        self.outlineAssetName = outlineAssetName
-        self.outlineBoundingBox = outlineBoundingBox
-        self.boundingCircle = boundingCircle
-        
+        self.placeablesDescriptors = placeables
         super.init(assetName: assetName)
     }
     
-    public func getOutlineAssetName() -> String {
-        return self.outlineAssetName
-    }
-    
-    public func getOutlineBoundingBox() -> CGRect {
-        return self.outlineBoundingBox
-    }
-    
-    public func getOutlineBoundingCircle() -> ZTronBoundingCircle?  {
-        return self.boundingCircle
+    public func getPlaceableDescriptors() -> [any PlaceableDescriptor] {
+        return Array(self.placeablesDescriptors)
     }
 }
 
-public struct ZTronBoundingCircle {
+public struct ZTronBoundingCircle: Sendable {
     internal let idleDiameter: Double?
     internal let normalizedCenter: CGPoint?
 
@@ -52,6 +32,4 @@ public struct ZTronBoundingCircle {
     internal func getNormalizedCenter() -> CGPoint? {
         return self.normalizedCenter
     }
-    
-    
 }

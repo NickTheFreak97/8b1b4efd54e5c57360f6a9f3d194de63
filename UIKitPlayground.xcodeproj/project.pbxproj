@@ -109,6 +109,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8473C4C82CC64F7B00ACD982 /* Placeables */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Placeables; sourceTree = "<group>"; };
+		847440522CC921E600D2FF33 /* PlaceablesFactory */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = PlaceablesFactory; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +203,7 @@
 		84C5A72E2CB860F500D56E4D /* Factory */ = {
 			isa = PBXGroup;
 			children = (
+				847440522CC921E600D2FF33 /* PlaceablesFactory */,
 				84C5A7332CB8634300D56E4D /* OutlinedMediaFactory.swift */,
 				84C5A7312CB8619400D56E4D /* BasicMediaFactory.swift */,
 				84C5A72F2CB860FE00D56E4D /* MediaFactory.swift */,
@@ -337,6 +339,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				8473C4C82CC64F7B00ACD982 /* Placeables */,
+				847440522CC921E600D2FF33 /* PlaceablesFactory */,
 			);
 			name = UIKitPlayground;
 			productName = UIKitPlayground;
@@ -414,6 +417,9 @@
 				Base,
 			);
 			mainGroup = 84CF3B9A2BADD56600B32715;
+			packageReferences = (
+				847440442CC9127100D2FF33 /* XCRemoteSwiftPackageReference "ZTronObservation" */,
+			);
 			productRefGroup = 84CF3BA42BADD56600B32715 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -931,6 +937,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		847440442CC9127100D2FF33 /* XCRemoteSwiftPackageReference "ZTronObservation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NiccoloBargioni/ZTronObservation";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 84CF3B9B2BADD56600B32715 /* Project object */;
 }

@@ -7,19 +7,24 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
     private var placeables: [any PlaceableView] = []
     
     
-    init(imageDescriptor: ZTronOutlinedImageDescriptor) {
-        let theSVG = ZTronSVGView(imageDescriptor: imageDescriptor)
-        self.placeables.append(theSVG)
+    init(
+        imageDescriptor: ZTronOutlinedImageDescriptor
+    ) {
         
+        let descriptors = imageDescriptor.getPlaceableDescriptors()
+        let placeablesFactory = ZTronBasicPlaceableFactory()
+                        
         self.colorPicker = UIColorPickerViewController()
-        
-        if imageDescriptor.getOutlineBoundingCircle() != nil {
-            self.placeables.append(CircleView(imageDescriptor: imageDescriptor))
-        }
-        
+                
         super.init(imageDescriptor: imageDescriptor)
         
-        theSVG.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.presentColorPicker(_:))))
+        descriptors.forEach { descriptor in
+            self.placeables.append(placeablesFactory.make(placeable: descriptor))
+        }
+        
+        assert(self.placeables.count > 0)
+        
+        self.placeables.first!.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.presentColorPicker(_:))))
 
         self.placeables.forEach {
             self.imageView.addSubview($0)
@@ -29,7 +34,7 @@ public class DMOutlinedImagePage: DMImagePage, UIPopoverPresentationControllerDe
         colorPicker.delegate = self
         
         self.colorPicker.modalPresentationStyle = .popover
-        self.colorPicker.popoverPresentationController?.sourceView = theSVG
+        self.colorPicker.popoverPresentationController?.sourceView = self.placeables.first!
         self.colorPicker.popoverPresentationController?.delegate = self
     }
     

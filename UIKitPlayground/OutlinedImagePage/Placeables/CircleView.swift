@@ -26,20 +26,22 @@ internal final class CircleView: UIView, PlaceableColoredView {
         }
     }
     
-    internal init (imageDescriptor: ZTronOutlinedImageDescriptor) {
+    internal init (descriptor: PlaceableBoundingCircleDescriptor) {
         
-        let bc = imageDescriptor.getOutlineBoundingCircle()
-        var diameter = bc?.getIdleDiameter()
+        let bc = descriptor.getOutlineBoundingCircle()
+        var diameter = bc.getIdleDiameter()
         
         
         if diameter == nil {
+            guard let boundingBox = descriptor.getNormalizedBoundingBox() else { fatalError(
+                "Whenever a diameter isn't specified in the circle descriptor, a valid bounding box must be provided"
+            ) }
             // compute the diameter as the minimum bounding circle that contains the outline
             // the best idea I have now is to take the diameter as the diagonal of the bounding box
             
             // if no diameter is specified, at least Outline must be provided
             // assert(imageDescriptor.getOutlineBoundingBox() != nil)
             
-            let boundingBox = imageDescriptor.getOutlineBoundingBox()
             let d = sqrt(
                 boundingBox.size.width*boundingBox.size.width +
                 boundingBox.size.height*boundingBox.size.height
@@ -48,11 +50,13 @@ internal final class CircleView: UIView, PlaceableColoredView {
             diameter = d
         }
         
-        var center = bc?.getNormalizedCenter()
+        var center = bc.getNormalizedCenter()
         
         if center == nil {
             // if the center was not specified, use the center of the outline's bounding box
-            let boundingBox = imageDescriptor.getOutlineBoundingBox()
+            guard let boundingBox = descriptor.getNormalizedBoundingBox() else { fatalError(
+                "Whenever a center isn't specified in the circle descriptor, a valid bounding box must be provided"
+            ) }
             
             let normalizedCenter = CGPoint(
                 x: boundingBox.origin.x + boundingBox.size.width/2.0,

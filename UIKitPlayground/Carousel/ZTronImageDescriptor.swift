@@ -1,3 +1,5 @@
+import Foundation
+
 open class ZTronImageDescriptor: VisualMediaDescriptor {
     private(set) public var type: VisualMedia
     private let assetName: String
